@@ -1,50 +1,40 @@
-@extends('layouts.admin')
- 
- @section('title')
-  <title>Trang chu</title>
+@extends('admin.layouts.admin')
+
+@section('title')
+<title>Trang chu</title>
 @endsection
 
- @section('content')
- <div class="content-wrapper">
-    @include('partials.content-header',['name' => 'menus','key'=> 'Add'])
+@section('content')
+<div class="content-wrapper">
+  @include('admin.partials.content-header',['name' => 'menus','key'=> 'Add'])
 
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
         <div class="col-md-6">
-        <form action="{{ route('menus.store') }}" method="post">
-          @csrf
-        <div class="form-group">
-            <label>Tên menus</label>
-            <input type="text" 
-                  class="form-control" 
-                  name="name"
-                  placeholder="Nhập tên menus">
-
+          <form action="{{ route('menus.store') }}" method="post">
+            @csrf
             <div class="form-group">
+              <label>Tên menus</label>
+              <input type="text"
+                class="form-control"
+                name="name"
+                placeholder="Nhập tên menus">
+
+              <div class="form-group">
                 <label>Chọn menus cha</label>
-                <select class="form-control" name="parent_id" >
-                <option value="0">Chọn menus cha</option>
-                {!! $optionSelect !!}
+                <select class="form-control" name="parent_id">
+                  <option value="0">Chọn menus cha</option>
+                  {!! $optionSelect !!}
                 </select>
+              </div>
             </div>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        </div>
-        
 
-
-
-
-          
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
- @endsection
- 
- 
-
-
+</div>
+@endsection
