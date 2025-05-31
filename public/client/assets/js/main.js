@@ -104,7 +104,7 @@
       /* single_p activation */
     $('.single_p_active').owlCarousel({
         animateOut: 'fadeOut',
-		loop: true,
+		loop: false,
         nav: true,
         autoplay: false,
         autoplayTimeout: 8000,

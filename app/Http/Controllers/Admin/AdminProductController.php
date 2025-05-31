@@ -104,6 +104,7 @@ class AdminProductController extends Controller
             DB::commit();
             return redirect()->route('product.index');
         } catch (Exception $exception) {
+            dd($exception);
             DB::rollBack();
             Log::error('Message:' . $exception->getMessage() . 'Line : ' . $exception->getLine());
         }

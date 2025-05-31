@@ -17,86 +17,22 @@
 
             <!--categorie menu start-->
             <div class="sidebar_widget catrgorie mb-35">
-                <h3>Categories</h3>
+                <h3>Danh mục sản phẩm</h3>
+                @if(isset($categories) && !empty($categories))
                 <ul>
-                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> women</a>
+                    @foreach($categories->where('parent_id', 0) as $category)
+                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> {{ $category->name }}</a>
+                        @if($categories->where('parent_id', $category->id)->count())
                         <ul class="categorie_sub">
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                <ul class="categorie_sub">
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
+                            @foreach($categories->where('parent_id', $category->id) as $category_child)
+                            <li><a href="{{ route('product.category', ['id' => $category_child->id, 'slug' => $category_child->slug ]) }}"><i class="fa fa-caret-right"></i> {{ $category_child->name }}</a></li>
+                            @endforeach
                         </ul>
+                        @endif
                     </li>
-                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Men</a>
-                        <ul class="categorie_sub">
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                <ul class="categorie_sub">
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Footwear</a>
-                        <ul class="categorie_sub">
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                <ul class="categorie_sub">
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                        </ul>
-
-                    </li>
-                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Jewelry</a>
-                        <ul class="categorie_sub">
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                <ul class="categorie_sub">
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Lady</a>
-                        <ul class="categorie_sub">
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                <ul class="categorie_sub">
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                        </ul>
-                    </li>
-
+                    @endforeach
                 </ul>
+                @endif
             </div>
             <!--categorie menu end-->
 
@@ -205,125 +141,37 @@
             <!--new product area start-->
             <div class="new_product_area">
                 <div class="block_title">
-                    <h3>New Products</h3>
+                    <h3>Sản phẩm mới</h3>
                 </div>
                 <div class="row">
                     <div class="product_active owl-carousel">
+                        @if(isset($new_products) && !empty($new_products))
+                        @foreach($new_products as $new_product)
                         <div class="col-lg-3">
                             <div class="single_product">
                                 <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product1.jpg') }}" alt=""></a>
+                                    <a href="{{ route('detail.product', ['id' => $new_product->id]) }}"><img src="{{ $new_product->feature_image_path }}" alt=""></a>
                                     <div class="img_icone">
                                         <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
                                     </div>
                                     <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="#" class="btn-buy-now" data-id="{{ $new_product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">$50.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
+                                    <span class="product_price">{{ number_format($new_product->price, 0, 0) }} VNĐ</span>
+                                    <h3 class="product_title"><a href="{{ route('detail.product', ['id' => $new_product->id]) }}">{{ $new_product->name }}</a></h3>
                                 </div>
                                 <div class="product_info">
                                     <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
+                                        <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">Chi tiết</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product2.jpg') }}" alt=""></a>
-                                    <div class="hot_img">
-                                        <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$40.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Quisque ornare dui</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product3.jpg') }}" alt=""></a>
-                                    <div class="img_icone">
-                                        <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$60.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Sed non turpiss</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product4.jpg') }}" alt=""></a>
-                                    <div class="hot_img">
-                                        <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$65.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Duis convallis</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product6.jpg') }}" alt=""></a>
-                                    <div class="img_icone">
-                                        <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$50.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -480,7 +328,7 @@
             <!--banner area end-->
 
             <!--brand logo strat-->
-            <div class="brand_logo mb-60">
+            <!-- <div class="brand_logo mb-60">
                 <div class="block_title">
                     <h3>Brands</h3>
                 </div>
@@ -518,9 +366,108 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--brand logo end-->
         </div>
     </div>
 </div>
+
+<!-- modal area start -->
+<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal_body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-12">
+                            <div class="modal_tab">
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                                        <div class="modal_tab_img">
+                                            <a href="#"><img src="assets\img\product\product13.jpg" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab2" role="tabpanel">
+                                        <div class="modal_tab_img">
+                                            <a href="#"><img src="assets\img\product\product14.jpg" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab3" role="tabpanel">
+                                        <div class="modal_tab_img">
+                                            <a href="#"><img src="assets\img\product\product15.jpg" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal_tab_button">
+                                    <ul class="nav product_navactive" role="tablist">
+                                        <li>
+                                            <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="assets\img\cart\cart17.jpg" alt=""></a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><img src="assets\img\cart\cart18.jpg" alt=""></a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link button_three" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><img src="assets\img\cart\cart19.jpg" alt=""></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-12">
+                            <div class="modal_right">
+                                <div class="modal_title mb-10">
+                                    <h2>Handbag feugiat</h2>
+                                </div>
+                                <div class="modal_price mb-10">
+                                    <span class="new_price">$64.99</span>
+                                    <span class="old_price">$78.99</span>
+                                </div>
+                                <div class="modal_content mb-10">
+                                    <p>Short-sleeved blouse with feminine draped sleeve detail.</p>
+                                </div>
+                                <div class="modal_size mb-15">
+                                    <h2>size</h2>
+                                    <ul>
+                                        <li><a href="#">s</a></li>
+                                        <li><a href="#">m</a></li>
+                                        <li><a href="#">l</a></li>
+                                        <li><a href="#">xl</a></li>
+                                        <li><a href="#">xxl</a></li>
+                                    </ul>
+                                </div>
+                                <div class="modal_add_to_cart mb-15">
+                                    <form action="#">
+                                        <input min="0" max="100" step="2" value="1" type="number">
+                                        <button type="submit">add to cart</button>
+                                    </form>
+                                </div>
+                                <div class="modal_description mb-15">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                                </div>
+                                <div class="modal_social">
+                                    <h2>Share this product</h2>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal area end -->
+
+<script>
+    
+</script>
 @endsection

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
+use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Auth;
@@ -97,8 +98,10 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     // các route dành riêng cho customer
 });
 
-Route::get('/', [ClientHomeController::class, 'index']);
-Route::get('/trang-chu', [ClientHomeController::class, 'index']);
-
 Route::get('/login', [LoginController::class, 'showform'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/', [ClientHomeController::class, 'index']);
+Route::get('/trang-chu', [ClientHomeController::class, 'index']);
+Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
+Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');

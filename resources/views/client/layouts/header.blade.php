@@ -55,7 +55,7 @@
                         </form>
                     </div>
                     <div class="shopping_cart">
-                        <a href="#"><i class="fa fa-shopping-cart"></i> 2Items - $209.44 <i class="fa fa-angle-down"></i></a>
+                        <a href="#"><i class="fa fa-shopping-cart"></i> 2 Sản phẩm <i class="fa fa-angle-down"></i></a>
 
                         <!--mini cart-->
                         <div class="mini_cart">
@@ -94,7 +94,7 @@
                                 <span class="prices"> $227.00 </span>
                             </div>
                             <div class="cart_button">
-                                <a href="checkout.html"> Check out</a>
+                                <a href="checkout.html"> Thanh toán</a>
                             </div>
                         </div>
                         <!--mini cart end-->
@@ -110,9 +110,10 @@
             <div class="col-12">
                 <div class="main_menu_inner">
                     <div class="main_menu d-none d-lg-block">
+                        @if(isset($menus) && !empty($menus))
                         <nav>
                             <ul>
-                                <li class="active"><a href="index.html">Home</a>
+                                <!-- <li class="active"><a href="index.html">Home</a>
                                     <div class="mega_menu jewelry">
                                         <div class="mega_items jewelry">
                                             <ul>
@@ -121,25 +122,23 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </li>
-                                <li><a href="shop.html">shop</a>
+                                </li> -->
+                                @foreach($menus->where('parent_id', 0) as $menu)
+                                <li><a href="shop.html">{{ $menu->name }}</a>
+                                    @if($menus->where('parent_id', $menu->id)->count())
                                     <div class="mega_menu jewelry">
                                         <div class="mega_items jewelry">
                                             <ul>
-                                                <li><a href="shop-list.html">shop list</a></li>
-                                                <li><a href="shop-fullwidth.html">shop Full Width Grid</a></li>
-                                                <li><a href="shop-fullwidth-list.html">shop Full Width list</a></li>
-                                                <li><a href="shop-sidebar.html">shop Right Sidebar</a></li>
-                                                <li><a href="shop-sidebar-list.html">shop list Right Sidebar</a></li>
-                                                <li><a href="single-product.html">Product Details</a></li>
-                                                <li><a href="single-product-sidebar.html">Product sidebar</a></li>
-                                                <li><a href="single-product-video.html">Product Details video</a></li>
-                                                <li><a href="single-product-gallery.html">Product Details Gallery</a></li>
+                                                @foreach($menus->where('parent_id', $menu->id) as $menu_child)
+                                                <li><a href="shop-list.html">{{ $menu_child->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
+                                    @endif
                                 </li>
-                                <li><a href="#">women</a>
+                                @endforeach
+                                <!-- <li><a href="#">women</a>
                                     <div class="mega_menu">
                                         <div class="mega_top fix">
                                             <div class="mega_items">
@@ -253,9 +252,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
 
-                                <li><a href="blog.html">blog</a>
+                                <!-- <li><a href="blog.html">blog</a>
                                     <div class="mega_menu jewelry">
                                         <div class="mega_items jewelry">
                                             <ul>
@@ -266,10 +265,11 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="contact.html">contact us</a></li>
+                                <li><a href="contact.html">contact us</a></li> -->
 
                             </ul>
                         </nav>
+                        @endif
                     </div>
                     <div class="mobile-menu d-lg-none">
                         <nav>
