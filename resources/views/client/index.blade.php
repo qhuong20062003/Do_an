@@ -468,6 +468,34 @@
 <!-- modal area end -->
 
 <script>
-    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function() {
+        $('.btn-buy-now').click(function(e) {
+            e.preventDefault();
+
+            let productId = $(this).data('id');
+
+            $.ajax({
+                url: '{{ route("cart.add") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                    quantity: 1
+                },
+                success: function (response) {
+                    $("#shopping_cart").html(response);
+                },
+                error: function (xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        }); 
+    });
 </script>
 @endsection

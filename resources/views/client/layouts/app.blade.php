@@ -7,6 +7,7 @@
     <title>Coron - Fashion eCommerce Bootstrap4 Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets\img\favicon.png">
 
@@ -17,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('client\assets\css\style.css') }}">
     <link rel="stylesheet" href="{{ asset('client\assets\css\responsive.css') }}">
     <script src="{{ asset('client\assets\js\vendor\modernizr-2.8.3.min.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>

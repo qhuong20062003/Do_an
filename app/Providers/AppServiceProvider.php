@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Menu;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider

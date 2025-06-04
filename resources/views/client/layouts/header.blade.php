@@ -1,6 +1,6 @@
 <div class="header_area">
     <!--header top-->
-    <div class="header_top">
+    <!-- <div class="header_top">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
                 <div class="switcher">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--header top end-->
 
     <!--header middel-->
@@ -42,7 +42,7 @@
             <!--logo start-->
             <div class="col-lg-3 col-md-3">
                 <div class="logo">
-                    <a href="index.html"><img src="{{ asset('client\assets\img\logo\logo.jpg.png') }}" alt=""></a>
+                    <a href="{{ route('index') }}"><img src="{{ asset('client\assets\img\logo\logo.jpg.png') }}" alt=""></a>
                 </div>
             </div>
             <!--logo end-->
@@ -54,50 +54,63 @@
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
-                    <div class="shopping_cart">
-                        <a href="#"><i class="fa fa-shopping-cart"></i> 2 Sản phẩm <i class="fa fa-angle-down"></i></a>
+                    <div class="shopping_cart" id="shopping_cart">
+                        <a href="#"><i class="fa fa-shopping-cart"></i> {{ $cart_items['total_quantity'] }} Sản phẩm <i class="fa fa-angle-down"></i></a>
 
                         <!--mini cart-->
                         <div class="mini_cart">
+                            @if(isset($cart_items['items']) && !empty($cart_items['items']))
+                            @php
+                            $total_price = 0;
+                            @endphp
+                            @foreach($cart_items['items'] as $item)
+                            @php
+                            $total_price += $item['price'] * $item['quantity'];
+                            @endphp
                             <div class="cart_item">
                                 <div class="cart_img">
-                                    <a href="#"><img src="{{ asset('client\assets\img\cart\cart.jpg') }}" alt=""></a>
+                                    <a href="#"><img src="{{ $item['feature_image_path'] }}" alt=""></a>
                                 </div>
                                 <div class="cart_info">
-                                    <a href="#">lorem ipsum dolor</a>
-                                    <span class="cart_price">$115.00</span>
-                                    <span class="quantity">Qty: 1</span>
+                                    <a href="#">{{ $item['name'] }}</a>
+                                    <span class="cart_price">{{ number_format($item['price'], 0, 0) }} VNĐ</span>
+                                    <span class="quantity">SL: {{ $item['quantity'] }}</span>
                                 </div>
                                 <div class="cart_remove">
-                                    <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
+                                    <a class="remove_cart_item" data-id="{{ $item['product_id'] }}"><i class="fa fa-times-circle"></i></a>
                                 </div>
                             </div>
-                            <div class="cart_item">
-                                <div class="cart_img">
-                                    <a href="#"><img src="{{ asset('client\assets\img\cart\cart2.jpg') }}" alt=""></a>
-                                </div>
-                                <div class="cart_info">
-                                    <a href="#">Quisque ornare dui</a>
-                                    <span class="cart_price">$105.00</span>
-                                    <span class="quantity">Qty: 1</span>
-                                </div>
-                                <div class="cart_remove">
-                                    <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
-                                </div>
-                            </div>
-                            <div class="shipping_price">
+                            @endforeach
+                            <!-- <div class="shipping_price">
                                 <span> Shipping </span>
                                 <span> $7.00 </span>
-                            </div>
+                            </div> -->
                             <div class="total_price">
-                                <span> total </span>
-                                <span class="prices"> $227.00 </span>
+                                <span> Tổng cộng </span>
+                                <span class="prices"> {{ number_format($total_price, 0, 0) }} VNĐ</span>
                             </div>
                             <div class="cart_button">
-                                <a href="checkout.html"> Thanh toán</a>
+                                <a href="{{ route('cart.index') }}"> Thanh toán</a>
                             </div>
+                            @else
+                            <p>Giỏ hàng trống</p>
+                            @endif
                         </div>
                         <!--mini cart end-->
+                    </div>
+
+                    <div class="account_dropdown">
+                        @if(Auth::check())
+                        <a href="#" id="accountToggle">{{ Auth::user()->name }} <i class="fa fa-angle-down"></i></a>
+
+                        <div class="account_menu" style="display: none;">
+                            <a href="{{ route('logout') }}">
+                                Đăng xuất
+                            </a>
+                        </div>
+                        @else
+                        <a href="{{ route('login') }}">Đăng nhập</a>
+                        @endif
                     </div>
 
                 </div>
@@ -438,3 +451,70 @@
         </div>
     </div>
 </div>
+<style>
+    .account_dropdown {
+        margin-left: 25px;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .account_menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        z-index: 999;
+        min-width: 90px;
+    }
+
+    .account_menu a {
+        display: block;
+        padding: 5px 0;
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $('#accountToggle').on('click', function(e) {
+            e.preventDefault();
+            $('.account_menu').toggle();
+        });
+
+        // Đóng nếu click bên ngoài
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.account_dropdown').length) {
+                $('.account_menu').hide();
+            }
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.remove_cart_item').click(function() {
+
+            let productId = $(this).data('id');
+
+            $.ajax({
+                url: '{{ route("cart.delete.header") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                },
+                success: function(response) {
+                    $("#shopping_cart").html(response);
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        });
+    });
+</script>

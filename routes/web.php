@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
+use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\HomeController;
 
@@ -17,9 +20,9 @@ use Illuminate\Support\Facades\Auth;
 
 use UniSharp\LaravelFilemanager\Lfm;
 
-Route::post('/logout', function () {
+Route::get('/logout', function () {
     Auth::logout();
-    return redirect('/login');
+    return redirect('/');
 })->name('logout');
 
 Route::get('/admin', [AdminController::class, 'loginAdmin']);
@@ -98,10 +101,18 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     // các route dành riêng cho customer
 });
 
-Route::get('/login', [LoginController::class, 'showform'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/dang-nhap', [ClientLoginController::class, 'showform'])->name('login');
+Route::post('/gui-dang-nhap', [ClientLoginController::class, 'login'])->name('post.login');
+Route::post('/dang-ky', [ClientLoginController::class, 'register'])->name('post.register');
 
-Route::get('/', [ClientHomeController::class, 'index']);
+Route::get('/', [ClientHomeController::class, 'index'])->name('index');
 Route::get('/trang-chu', [ClientHomeController::class, 'index']);
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');
+Route::post('/them-vao-gio-hang', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
+Route::post('/gio-hang/cap-nhat', [CartController::class, 'edit'])->name('cart.edit');
+Route::post('/gio-hang/xoa', [CartController::class, 'delete'])->name('cart.delete');
+Route::post('/gio-hang/xoa/thanh-tieu-de', [CartController::class, 'delete_cart_header'])->name('cart.delete.header');
+Route::get('/thanh-toan', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/thanh-toan-vn-pay', [CheckoutController::class,'vnpay_payment'])->name('payment.vn_pay');
