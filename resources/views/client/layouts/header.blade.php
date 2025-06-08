@@ -50,7 +50,7 @@
                 <div class="header_right_info">
                     <div class="search_bar">
                         <form action="#">
-                            <input placeholder="Search..." type="text">
+                            <input placeholder="Tìm kiếm..." type="text">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>

@@ -15,6 +15,11 @@ class LoginController extends Controller
         return view('client.login');
     }
 
+    public function showformRegister()
+    {
+        return view('client.register');
+    }
+
     public function login(Request $request)
     {
         $email = $request->email;

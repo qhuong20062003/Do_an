@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminMenuController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSliderController;
 use Illuminate\Support\Facades\Route;
@@ -90,6 +91,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('users.update');
         Route::get('/delete/{id}', [AdminUserController::class, 'delete'])->name('users.delete');
     });
+
+    //Orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [AdminOrderController::class, 'index'])->name('orders.index');
+    });
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -102,8 +108,9 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 });
 
 Route::get('/dang-nhap', [ClientLoginController::class, 'showform'])->name('login');
+Route::get('/dang-ky', [ClientLoginController::class, 'showformRegister'])->name('register');
 Route::post('/gui-dang-nhap', [ClientLoginController::class, 'login'])->name('post.login');
-Route::post('/dang-ky', [ClientLoginController::class, 'register'])->name('post.register');
+Route::post('/gui-dang-ky', [ClientLoginController::class, 'register'])->name('post.register');
 
 Route::get('/', [ClientHomeController::class, 'index'])->name('index');
 Route::get('/trang-chu', [ClientHomeController::class, 'index']);
@@ -115,4 +122,5 @@ Route::post('/gio-hang/cap-nhat', [CartController::class, 'edit'])->name('cart.e
 Route::post('/gio-hang/xoa', [CartController::class, 'delete'])->name('cart.delete');
 Route::post('/gio-hang/xoa/thanh-tieu-de', [CartController::class, 'delete_cart_header'])->name('cart.delete.header');
 Route::get('/thanh-toan', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('/thanh-toan-vn-pay', [CheckoutController::class,'vnpay_payment'])->name('payment.vn_pay');
+Route::post('/hinh-thuc/thanh-toan', [CheckoutController::class,'payment'])->name('payment.handle');
+Route::get('/thanh-toan/thanh-cong', [CheckoutController::class, 'success'])->name('payment.success');

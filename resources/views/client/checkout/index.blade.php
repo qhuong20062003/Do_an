@@ -72,224 +72,98 @@
             </div>
         </div>
     </div> -->
-    <div class="checkout_form">
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <form action="#">
-                    <h3>Billing Details</h3>
+    <form action="{{ route('payment.handle') }}" method="POST">
+        <div class="checkout_form">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <h3>Thông tin khách hàng</h3>
                     <div class="row">
-
-                        <div class="col-lg-6 mb-30">
-                            <label>First Name <span>*</span></label>
-                            <input type="text">
-                        </div>
-                        <div class="col-lg-6 mb-30">
-                            <label>Last Name <span>*</span></label>
-                            <input type="text">
+                        <div class="col-12 mb-30">
+                            <label>Tên người nhận <span>*</span></label>
+                            <input type="text" name="name">
                         </div>
                         <div class="col-12 mb-30">
-                            <label>Company Name</label>
-                            <input type="text">
+                            <label>Số điện thoại người nhận <span>*</span></label>
+                            <input type="number" name="phone">
                         </div>
                         <div class="col-12 mb-30">
-                            <label for="country">country <span>*</span></label>
-                            <select name="cuntry" id="country">
-                                <option value="2">bangladesh</option>
-                                <option value="3">Algeria</option>
-                                <option value="4">Afghanistan</option>
-                                <option value="5">Ghana</option>
-                                <option value="6">Albania</option>
-                                <option value="7">Bahrain</option>
-                                <option value="8">Colombia</option>
-                                <option value="9">Dominican Republic</option>
-
-                            </select>
-                        </div>
-
-                        <div class="col-12 mb-30">
-                            <label>Street address <span>*</span></label>
-                            <input placeholder="House number and street name" type="text">
+                            <label>Địa chỉ người nhận <span>*</span></label>
+                            <input type="text" name="address">
                         </div>
                         <div class="col-12 mb-30">
-                            <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                        </div>
-                        <div class="col-12 mb-30">
-                            <label>Town / City <span>*</span></label>
-                            <input type="text">
-                        </div>
-                        <div class="col-12 mb-30">
-                            <label>State / County <span>*</span></label>
-                            <input type="text">
-                        </div>
-                        <div class="col-lg-6 mb-30">
-                            <label>Phone<span>*</span></label>
-                            <input type="text">
-
-                        </div>
-                        <div class="col-lg-6 mb-30">
-                            <label> Email Address <span>*</span></label>
-                            <input type="text">
-
-                        </div>
-                        <div class="col-12 mb-30">
-                            <input id="account" type="checkbox" data-target="createp_account">
-                            <label for="account" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">Create an account?</label>
-
-                            <div id="collapseOne" class="collapse one" data-parent="#accordion">
-                                <div class="card-body1">
-                                    <label> Account password <span>*</span></label>
-                                    <input placeholder="password" type="password">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 mb-30">
-                            <input id="address" type="checkbox" data-target="createp_account">
-                            <label class="righ_0" for="address" data-toggle="collapse" data-target="#collapsetwo" aria-controls="collapseOne">Ship to a different address?</label>
-
-                            <div id="collapsetwo" class="collapse one" data-parent="#accordion">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-30">
-                                        <label>First Name <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-lg-6 mb-30">
-                                        <label>Last Name <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label>Company Name</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <div class="select_form_select">
-                                            <label for="countru_name">country <span>*</span></label>
-                                            <select name="cuntry" id="countru_name">
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 mb-30">
-                                        <label>Street address <span>*</span></label>
-                                        <input placeholder="House number and street name" type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label>Town / City <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label>State / County <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-lg-6 mb-30">
-                                        <label>Phone<span>*</span></label>
-                                        <input type="text">
-
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label> Email Address <span>*</span></label>
-                                        <input type="text">
-
-                                    </div>
-                                </div>
-                            </div>
+                            <label>Email người nhận </label>
+                            <input type="text" name="email">
                         </div>
                         <div class="col-12">
                             <div class="order-notes">
-                                <label for="order_note">Order Notes</label>
-                                <textarea id="order_note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                <label for="order_note">Ghi chú</label>
+                                <textarea id="order_note" name="note" rows="4"></textarea>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <h3>Your order</h3>
-                <div class="order_table table-responsive mb-30">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Sản phẩm</th>
-                                <th>Đơn giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> Handbag fringilla <strong> × 2</strong></td>
-                                <td> $165.00</td>
-                            </tr>
-                            <tr>
-                                <td> Handbag justo <strong> × 2</strong></td>
-                                <td> $50.00</td>
-                            </tr>
-                            <tr>
-                                <td> Handbag elit <strong> × 2</strong></td>
-                                <td> $50.00</td>
-                            </tr>
-                            <tr>
-                                <td> Handbag Rutrum <strong> × 1</strong></td>
-                                <td> $50.00</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Thành tiền</th>
-                                <td>$215.00</td>
-                            </tr>
-                            <tr>
-                                <th>Phí giao hàng</th>
-                                <td><strong>$5.00</strong></td>
-                            </tr>
-                            <tr class="order_total">
-                                <th>Tổng cộng</th>
-                                <td><strong>$220.00</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
                 </div>
-                <div class="payment_method">
-                    <div class="panel-default">
-                        <input id="payment" name="check_method" type="radio" data-target="createp_account">
-                        <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Create an account?</label>
-
-                        <div id="method" class="collapse one" data-parent="#accordion">
-                            <div class="card-body1">
-                                <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                            </div>
+                <div class="col-lg-6 col-md-6">
+                    <h3>Thông tin đơn hàng</h3>
+                    <div class="order_table table-responsive mb-30">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                </tr>
+                            </thead>
+                            @if(isset($result['items']) && !empty($result['items']))
+                            <tbody>
+                                @php
+                                $total_price = 0;
+                                @endphp
+                                @foreach($result['items'] as $item)
+                                @php
+                                $total_price += $item['price'] * $item['quantity'];
+                                @endphp
+                                <tr>
+                                    <td> {{ $item['name'] }} <strong> × {{ $item['quantity'] }}</strong></td>
+                                    <td> {{ number_format($item['price'] * $item['quantity'], 0, 0) }} VNĐ</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Thành tiền</th>
+                                    <td>{{ number_format($total_price, 0, 0) }} VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <th>Phí giao hàng</th>
+                                    <td><strong>20,000 VNĐ</strong></td>
+                                </tr>
+                                <tr class="order_total">
+                                    <th>Tổng cộng</th>
+                                    <td><strong>{{ number_format($total_price + 20000, 0, 0) }} VNĐ</strong></td>
+                                    <input type="hidden" name="total_price" value="{{ $total_price + 20000 }}"/>
+                                </tr>
+                            </tfoot>
+                            @endif
+                        </table>
+                    </div>
+                    @if(Auth::check())
+                    <div class="payment_method">
+                        <div class="order_button">
+                            <button type="submit" name="action" value="online">Thanh toán VN Pay</button>
                         </div>
                     </div>
-                    <form action="{{ route('payment.vn_pay') }}" method="POST">
-                        @csrf
-                        <div class="panel-default">
-                            <input type="hidden" name="total_vnpay" value="3000000"/>
-                            <input id="payment_defult" name="check_method" type="radio" data-target="createp_account">
-                            <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets\img\visha\papyel.png" alt=""></label>
-
-                            <div id="collapsedefult" class="collapse one" data-parent="#accordion">
-                                <div class="card-body1">
-                                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="payment_method mt-2">
                         <div class="order_button">
-                            <button type="submit" name="redirect">Thanh toán VN Pay</button>
+                            <button type="submit" name="action" value="offline">Thanh toán khi nhận hàng</button>
                         </div>
-                    </form>
+                    </div>
+                    @else
+                    <p>Bạn chưa đăng nhập. Hãy thực hiện <a href="{{ route('login') }}" class="text-success">Đăng nhập</a> để tiếp tục thanh toán</p>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
+        @csrf
+    </form>
 </div>
 <!--Checkout page section end-->
 @endsection
