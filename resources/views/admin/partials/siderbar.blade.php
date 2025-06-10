@@ -58,7 +58,25 @@
            <a href="{{ route('product.index') }}" class="nav-link">
              <i class="nav-icon fas fa-th"></i>
              <p>
-               San pham
+               Sản phẩm
+             </p>
+           </a>
+         </li>
+
+         <li class="nav-item">
+           <a href="{{ route('colors.index') }}" class="nav-link">
+             <i class="nav-icon fas fa-th"></i>
+             <p>
+               Màu sắc
+             </p>
+           </a>
+         </li>
+
+         <li class="nav-item">
+           <a href="{{ route('sizes.index') }}" class="nav-link">
+             <i class="nav-icon fas fa-th"></i>
+             <p>
+               Size
              </p>
            </a>
          </li>

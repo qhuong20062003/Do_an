@@ -74,10 +74,11 @@
                                 <div class="cart_info">
                                     <a href="#">{{ $item['name'] }}</a>
                                     <span class="cart_price">{{ number_format($item['price'], 0, 0) }} VNĐ</span>
+                                    <span>{{ $item['color_name'] }}, {{ $item['size_name'] }}</span>
                                     <span class="quantity">SL: {{ $item['quantity'] }}</span>
                                 </div>
                                 <div class="cart_remove">
-                                    <a class="remove_cart_item" data-id="{{ $item['product_id'] }}"><i class="fa fa-times-circle"></i></a>
+                                    <a class="remove_cart_item" data-id="{{ $item['product_variant_id'] }}"><i class="fa fa-times-circle"></i></a>
                                 </div>
                             </div>
                             @endforeach

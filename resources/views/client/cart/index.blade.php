@@ -49,10 +49,14 @@
                                 $total_price = $item['price'] * $item['quantity'];
                                 $sub_total += $total_price;
                                 @endphp
-                                <tr data-id="{{ $item['product_id'] }}">
+                                <tr data-id="{{ $item['product_variant_id'] }}">
                                     <td class="product_remove"><a class="remove_product_cart"><i class="fa fa-trash-o"></i></a></td>
                                     <td class="product_thumb"><a href="#"><img src="{{ $item['feature_image_path'] }}" alt=""></a></td>
-                                    <td class="product_name"><a href="#">{{ $item['name'] }}</a></td>
+                                    <td class="product_name">
+                                        <a href="#">{{ $item['name'] }}</a>
+                                        <br>
+                                        <span>{{ $item['color_name'] }}, {{ $item['size_name'] }}</span>
+                                    </td>
                                     <td class="product-price">{{ number_format($item['price'], 0, 0) }} VNĐ</td>
                                     <td class="product_quantity"><input min="0" max="100" value="{{ $item['quantity'] }}" type="number" class="input_product_quantity"></td>
                                     <td class="product_total">{{ number_format($total_price, 0, 0) }} VNĐ</td>
@@ -122,7 +126,7 @@
     $(document).ready(function() {
         $('.input_product_quantity').off('change').on('change',function() {
             let self = this;
-            let productId = $(self).closest('tr').data('id');
+            let productVariantId = $(self).closest('tr').data('id');
             let quantity = $(self).val();
 
             $.ajax({
@@ -130,7 +134,7 @@
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    product_id: productId,
+                    product_variant_id: productVariantId,
                     quantity: quantity
                 },
                 success: function (response) {
@@ -146,14 +150,14 @@
 
         $('.remove_product_cart').click(function() {
             let self = this;
-            let productId = $(self).closest('tr').data('id');
+            let productVariantId = $(self).closest('tr').data('id');
 
             $.ajax({
                 url: '{{ route("cart.delete") }}',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    product_id: productId,
+                    product_variant_id: productVariantId,
                 },
                 success: function (response) {
                     $(self).closest('tr').remove();

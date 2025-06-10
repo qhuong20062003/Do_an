@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminColorController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminMenuController;
 use App\Http\Controllers\Admin\AdminOrderController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminSizeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Client\CartController;
@@ -32,7 +34,7 @@ Route::post('/admin', [AdminController::class, 'postLoginAdmin']);
 // Route::get('/category/{id}', [CategoryController::class, 'showHome'])->name('categories.showHome');
 // Route::get('/product/{id}', [AdminProductController::class, 'detailsProduct'])->name('product.details');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('/', [AdminCategoryController::class, 'index'])->name('categories.index');
         Route::get('/create', [AdminCategoryController::class, 'create'])->name('categories.create');
@@ -59,6 +61,26 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [AdminProductController::class, 'edit'])->name('product.edit');
         Route::post('/update/{id}', [AdminProductController::class, 'update'])->name('product.update');
         Route::get('/delete/{id}', [AdminProductController::class, 'delete'])->name('product.delete');
+    });
+
+    //Colors
+    Route::prefix('colors')->group(function () {
+        Route::get('/', [AdminColorController::class, 'index'])->name('colors.index');
+        Route::get('/create', [AdminColorController::class, 'create'])->name('colors.create');
+        Route::post('/store', [AdminColorController::class, 'store'])->name('colors.store');
+        Route::get('/edit/{id}', [AdminColorController::class, 'edit'])->name('colors.edit');
+        Route::post('/update/{id}', [AdminColorController::class, 'update'])->name('colors.update');
+        Route::get('/delete/{id}', [AdminColorController::class, 'delete'])->name('colors.delete');
+    });
+
+    //Sizes
+    Route::prefix('sizes')->group(function () {
+        Route::get('/', [AdminSizeController::class, 'index'])->name('sizes.index');
+        Route::get('/create', [AdminSizeController::class, 'create'])->name('sizes.create');
+        Route::post('/store', [AdminSizeController::class, 'store'])->name('sizes.store');
+        Route::get('/edit/{id}', [AdminSizeController::class, 'edit'])->name('sizes.edit');
+        Route::post('/update/{id}', [AdminSizeController::class, 'update'])->name('sizes.update');
+        Route::get('/delete/{id}', [AdminSizeController::class, 'delete'])->name('sizes.delete');
     });
 
     //SLider
@@ -116,6 +138,7 @@ Route::get('/', [ClientHomeController::class, 'index'])->name('index');
 Route::get('/trang-chu', [ClientHomeController::class, 'index']);
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');
+Route::post('/kiem-tra-ton-kho', [ProductController::class, 'checkStock'])->name('check.stock');
 Route::post('/them-vao-gio-hang', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
 Route::post('/gio-hang/cap-nhat', [CartController::class, 'edit'])->name('cart.edit');

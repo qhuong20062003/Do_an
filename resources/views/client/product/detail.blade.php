@@ -29,12 +29,15 @@
                         <li>
                             <a class="active" data-toggle="tab" href="#p_tab1" role="tab" aria-controls="p_tab1" aria-selected="false"><img src="{{ $product->feature_image_path }}" alt=""></a>
                         </li>
+                        @if(isset($product_images) && !empty($product_images))
+                        @php $index = 2; @endphp
+                        @foreach($product_images as $product_image)
                         <li>
-                            <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2" aria-selected="false"><img src="assets\img\cart\cart2.jpg" alt=""></a>
+                            <a data-toggle="tab" href="#p_tab{{ $index }}" role="tab" aria-controls="p_tab{{ $index }}" aria-selected="false"><img src="{{ $product_image->image_path }}" alt=""></a>
                         </li>
-                        <li>
-                            <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3" aria-selected="false"><img src="assets\img\cart\cart4.jpg" alt=""></a>
-                        </li>
+                        @php $index ++; @endphp
+                        @endforeach
+                        @endif
                     </ul>
                 </div>
                 <div class="tab-content produc_tab_c">
@@ -49,28 +52,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="p_tab2" role="tabpanel">
+                    @if(isset($product_images) && !empty($product_images))
+                    @php $index = 2; @endphp
+                    @foreach($product_images as $product_image)
+                    <div class="tab-pane fade" id="p_tab{{ $index }}" role="tabpanel">
                         <div class="modal_img">
-                            <a href="#"><img src="assets\img\product\product14.jpg" alt=""></a>
+                            <a href="#"><img src="{{ $product_image->image_path }}" alt=""></a>
                             <div class="img_icone">
                                 <img src="assets\img\cart\span-new.png" alt="">
                             </div>
                             <div class="view_img">
-                                <a class="large_view" href="assets\img\product\product14.jpg"><i class="fa fa-search-plus"></i></a>
+                                <a class="large_view" href="{{ $product_image->image_path }}"><i class="fa fa-search-plus"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="p_tab3" role="tabpanel">
-                        <div class="modal_img">
-                            <a href="#"><img src="assets\img\product\product15.jpg" alt=""></a>
-                            <div class="img_icone">
-                                <img src="assets\img\cart\span-new.png" alt="">
-                            </div>
-                            <div class="view_img">
-                                <a class="large_view" href="assets\img\product\product15.jpg"> <i class="fa fa-search-plus"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    @php $index ++; @endphp
+                    @endforeach
+                    @endif
                 </div>
 
             </div>
@@ -96,38 +94,51 @@
                     <span>{{ number_format($product->price, 0, 0) }} VNĐ</span>
                     <span class="old-price">$130.00</span>
                 </div>
+                <form action="{{ route('cart.add') }}" method="POST">
                 <div class="box_quantity mb-20">
-                    <form action="#">
-                        <label>Số lượng</label>
-                        <input min="0" max="100" value="1" type="number">
-                    </form>
-                    <button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>
-                    <a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                    <label>Số lượng</label>
+                    <input min="0" max="100" value="1" type="number" name="quantity" id="product_quantity">
+                    <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}"/>
+                    <input type="hidden" name="product_variant_id" id="product_variant_id" value=""/>
+                    <input type="hidden" name="type_cart" value="detail_product"/>
+                    @csrf
+                    <div class="box_add_to_cart"></div>
+                    <!-- <a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a> -->
                 </div>
+                </form>
+                @if(isset($sizes) && !empty($sizes))
                 <div class="product_d_size mb-20">
                     <label for="group_1">size</label>
-                    <select name="size" id="group_1">
-                        <option value="1">S</option>
-                        <option value="2">M</option>
-                        <option value="3">L</option>
+                    <select name="size_id" id="size">
+                        @foreach($sizes as $size)
+                        <option value="{{ $size->id }}">{{ $size->name }}</option>
+                        @endforeach
                     </select>
                 </div>
+                @endif
 
+                @if(isset($colors) && !empty($colors))
                 <div class="sidebar_widget color">
-                    <h2>Choose Color</h2>
+                    <h2>Màu sắc</h2>
                     <div class="widget_color">
-                        <ul>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li> <a href="#"></a></li>
-                            <li><a href="#"></a></li>
+                        <ul class="list-unstyled d-flex">
+                            @foreach($colors as $color)
+                            <li>
+                                <label>
+                                    <input type="radio" class="color-radio" name="color_id" value="{{ $color->id }}">
+                                    <span class="color-option" style="background-color: {{ $color->code }};"></span>
+                                </label>
+                            </li>
+                            @endforeach
                         </ul>
                     </div>
-                </div>
 
-                <div class="product_stock mb-20">
+                </div>
+                @endif
+
+                <!-- <div class="product_stock mb-20">
                     <p>299 items</p>
-                    <span> In stock </span>
+                    <span> Số lượng còn trong kho </span>
                 </div>
                 <div class="wishlist-share">
                     <h4>Share on:</h4>
@@ -138,7 +149,7 @@
                         <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -423,4 +434,156 @@
     </div>
 </div>
 <!--new product area start-->
+<style>
+    .list-unstyled{
+        gap: 10px;
+    }
+    .color-option {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        border: 2px solid transparent;
+        transition: border-color 0.3s;
+    }
+
+    .color-radio:checked + .color-option {
+        border-color: #fff; /* Viền màu đen khi được chọn */
+    }
+
+    .color-radio {
+        display: none; /* Ẩn radio */
+    }
+    .sold_out{
+        color: red;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        margin-left: 30px;
+    }
+</style>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function() {
+        $('#size').change(function() {
+            let size_id = $("#size").val();
+            let color_id = $('.color-radio:checked').val();
+            let product_id = $("#product_id").val();
+            let product_quantity = $("#product_quantity").val();
+
+            if(!color_id || !product_quantity) {
+                alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
+            } else {
+                $.ajax({
+                    url: '{{ route("check.stock") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        quantity: product_quantity,
+                    },
+                    success: function (response) {
+                        $(".box_add_to_cart").empty();
+                        if(response.status === 'success') {
+                            $("#product_variant_id").val(response.product_variant_id);
+                            $(".box_add_to_cart").append(`<button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>`);
+                        } else if(response.status === 'sold_out') {
+                            $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
+                        } else {
+                            $(".box_add_to_cart").empty();
+                        }
+                        
+                    },
+                    error: function (xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                });
+            }
+            
+        });
+        
+        $('#product_quantity').change(function() {
+            let size_id = $("#size").val();
+            let color_id = $('.color-radio:checked').val();
+            let product_id = $("#product_id").val();
+            let product_quantity = $("#product_quantity").val();
+
+            if(!color_id || !product_quantity) {
+                alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
+            } else {
+                $.ajax({
+                    url: '{{ route("check.stock") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        quantity: product_quantity,
+                    },
+                    success: function (response) {
+                        $(".box_add_to_cart").empty();
+                        if(response.status === 'success') {
+                            $("#product_variant_id").val(response.product_variant_id);
+                            $(".box_add_to_cart").append(`<button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>`);
+                        } else if(response.status === 'sold_out') {
+                            $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
+                        } else {
+                            $(".box_add_to_cart").empty();
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                });
+            }
+        });
+
+        $('.color-radio').change(function() {
+            let size_id = $("#size").val();
+            let color_id = $('.color-radio:checked').val();
+            let product_id = $("#product_id").val();
+            let product_quantity = $("#product_quantity").val();
+
+            if(!color_id || !product_quantity) {
+                alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
+            } else {
+                $.ajax({
+                    url: '{{ route("check.stock") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        quantity: product_quantity,
+                    },
+                    success: function (response) {
+                        $(".box_add_to_cart").empty();
+                        if(response.status === 'success') {
+                            $("#product_variant_id").val(response.product_variant_id);
+                            $(".box_add_to_cart").append(`<button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>`);
+                        } else if(response.status === 'sold_out') {
+                            $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
+                        } else {
+                            $(".box_add_to_cart").empty();
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                });
+            }
+        });
+    });
+</script>
 @endsection
