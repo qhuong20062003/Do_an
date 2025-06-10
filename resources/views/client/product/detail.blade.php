@@ -91,8 +91,12 @@
                 </div>
 
                 <div class="content_price mb-15">
+                    @if(!empty($product->discount) && $product->discount > 0)
+                    <span>{{ number_format($product->discount, 0, 0) }} VNĐ</span>
+                    <span class="old-price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                    @else
                     <span>{{ number_format($product->price, 0, 0) }} VNĐ</span>
-                    <span class="old-price">$130.00</span>
+                    @endif
                 </div>
                 <form action="{{ route('cart.add') }}" method="POST">
                 <div class="box_quantity mb-20">

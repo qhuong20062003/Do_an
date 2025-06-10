@@ -50,4 +50,24 @@ class ProductController extends Controller
             return response()->json(['status' => 'sold_out']);
         }
     }
+
+    public function viewDetail(Request $request)
+    {
+        $product_id = $request->product_id;
+
+        $product = Product::findOrFail($product_id);
+        $colors = Colors::join('product_variants', 'colors.id', '=', 'product_variants.color_id')
+                ->select('colors.*')
+                ->where('product_variants.product_id', $product_id)
+                ->distinct()
+                ->get();
+        $sizes = Sizes::join('product_variants', 'sizes.id', '=', 'product_variants.size_id')
+                ->select('sizes.*')
+                ->where('product_variants.product_id', $product_id)
+                ->distinct()
+                ->get();
+        $product_images = ProductImage::where('product_id', $product_id)->get();
+
+        return view('client.product.fade', compact('product', 'colors', 'sizes', 'product_images'));
+    }
 }

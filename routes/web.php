@@ -138,6 +138,7 @@ Route::get('/', [ClientHomeController::class, 'index'])->name('index');
 Route::get('/trang-chu', [ClientHomeController::class, 'index']);
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');
+Route::post('/xem-chi-tiet-san-pham', [ProductController::class, 'viewDetail'])->name('view.detail.product');
 Route::post('/kiem-tra-ton-kho', [ProductController::class, 'checkStock'])->name('check.stock');
 Route::post('/them-vao-gio-hang', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
