@@ -99,16 +99,16 @@
                     @endif
                 </div>
                 <form action="{{ route('cart.add') }}" method="POST">
-                <div class="box_quantity mb-20">
-                    <label>Số lượng</label>
-                    <input min="0" max="100" value="1" type="number" name="quantity" id="product_quantity">
-                    <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}"/>
-                    <input type="hidden" name="product_variant_id" id="product_variant_id" value=""/>
-                    <input type="hidden" name="type_cart" value="detail_product"/>
-                    @csrf
-                    <div class="box_add_to_cart"></div>
-                    <!-- <a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a> -->
-                </div>
+                    <div class="box_quantity mb-20">
+                        <label>Số lượng</label>
+                        <input min="0" max="100" value="1" type="number" name="quantity" id="product_quantity">
+                        <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}" />
+                        <input type="hidden" name="product_variant_id" id="product_variant_id" value="" />
+                        <input type="hidden" name="type_cart" value="detail_product" />
+                        @csrf
+                        <div class="box_add_to_cart"></div>
+                        <!-- <a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a> -->
+                    </div>
                 </form>
                 @if(isset($sizes) && !empty($sizes))
                 <div class="product_d_size mb-20">
@@ -439,9 +439,13 @@
 </div>
 <!--new product area start-->
 <style>
-    .list-unstyled{
+    .list-unstyled {
         gap: 10px;
+        display: flex;
+        padding-left: 0;
+        list-style: none;
     }
+
     .color-option {
         width: 30px;
         height: 30px;
@@ -450,17 +454,21 @@
         cursor: pointer;
         position: relative;
         border: 2px solid transparent;
-        transition: border-color 0.3s;
-    }
-
-    .color-radio:checked + .color-option {
-        border-color: #fff; /* Viền màu đen khi được chọn */
+        transition: all 0.3s ease;
     }
 
     .color-radio {
-        display: none; /* Ẩn radio */
+        display: none;
+        /* Ẩn radio */
     }
-    .sold_out{
+
+    /* Khi radio được chọn, hiển thị viền nổi bật */
+    .color-radio:checked+.color-option {
+        border: 2px solid #000;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+    }
+
+    .sold_out {
         color: red;
         font-size: 16px;
         display: flex;
@@ -468,6 +476,7 @@
         margin-left: 30px;
     }
 </style>
+
 <script>
     $.ajaxSetup({
         headers: {
@@ -482,7 +491,7 @@
             let product_id = $("#product_id").val();
             let product_quantity = $("#product_quantity").val();
 
-            if(!color_id || !product_quantity) {
+            if (!color_id || !product_quantity) {
                 alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
             } else {
                 $.ajax({
@@ -495,33 +504,33 @@
                         size_id: size_id,
                         quantity: product_quantity,
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $(".box_add_to_cart").empty();
-                        if(response.status === 'success') {
+                        if (response.status === 'success') {
                             $("#product_variant_id").val(response.product_variant_id);
                             $(".box_add_to_cart").append(`<button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>`);
-                        } else if(response.status === 'sold_out') {
+                        } else if (response.status === 'sold_out') {
                             $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
                         } else {
                             $(".box_add_to_cart").empty();
                         }
-                        
+
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         alert('Có lỗi xảy ra, vui lòng thử lại!');
                     }
                 });
             }
-            
+
         });
-        
+
         $('#product_quantity').change(function() {
             let size_id = $("#size").val();
             let color_id = $('.color-radio:checked').val();
             let product_id = $("#product_id").val();
             let product_quantity = $("#product_quantity").val();
 
-            if(!color_id || !product_quantity) {
+            if (!color_id || !product_quantity) {
                 alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
             } else {
                 $.ajax({
@@ -534,18 +543,18 @@
                         size_id: size_id,
                         quantity: product_quantity,
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $(".box_add_to_cart").empty();
-                        if(response.status === 'success') {
+                        if (response.status === 'success') {
                             $("#product_variant_id").val(response.product_variant_id);
                             $(".box_add_to_cart").append(`<button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>`);
-                        } else if(response.status === 'sold_out') {
+                        } else if (response.status === 'sold_out') {
                             $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
                         } else {
                             $(".box_add_to_cart").empty();
                         }
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         alert('Có lỗi xảy ra, vui lòng thử lại!');
                     }
                 });
@@ -558,7 +567,7 @@
             let product_id = $("#product_id").val();
             let product_quantity = $("#product_quantity").val();
 
-            if(!color_id || !product_quantity) {
+            if (!color_id || !product_quantity) {
                 alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
             } else {
                 $.ajax({
@@ -571,18 +580,18 @@
                         size_id: size_id,
                         quantity: product_quantity,
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $(".box_add_to_cart").empty();
-                        if(response.status === 'success') {
+                        if (response.status === 'success') {
                             $("#product_variant_id").val(response.product_variant_id);
                             $(".box_add_to_cart").append(`<button type="submit"><i class="fa fa-shopping-cart"></i> Mua hàng</button>`);
-                        } else if(response.status === 'sold_out') {
+                        } else if (response.status === 'sold_out') {
                             $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
                         } else {
                             $(".box_add_to_cart").empty();
                         }
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         alert('Có lỗi xảy ra, vui lòng thử lại!');
                     }
                 });

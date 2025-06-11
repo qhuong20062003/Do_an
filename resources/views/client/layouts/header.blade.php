@@ -144,7 +144,7 @@
                                         <div class="mega_items jewelry">
                                             <ul>
                                                 @foreach($menus->where('parent_id', $menu->id) as $menu_child)
-                                                <li><a href="shop-list.html">{{ $menu_child->name }}</a></li>
+                                                <li><a href="{{ route('product.menu', ['id' => $menu_child->id, 'slug' => $menu_child->slug]) }}">{{ $menu_child->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>

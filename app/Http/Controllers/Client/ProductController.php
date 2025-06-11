@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Colors;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -15,7 +16,17 @@ class ProductController extends Controller
     public function list(string $id)
     {
         $products = Product::where('category_id', $id)->get();
-        return view('client.product.list', compact('products'));
+        $categories = Category::where('parent_id', 0)->get();
+
+        return view('client.product.list', compact('products', 'categories'));
+    }
+
+    public function getProductByMenu(string $id)
+    {
+        $products = Product::where('menu_id', $id)->get();
+        $categories = Category::where('parent_id', 0)->get();
+
+        return view('client.product.list', compact('products', 'categories'));
     }
 
     public function detail(string $id)

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\ProductVariant;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +16,7 @@ class CheckoutController extends Controller
     public function index()
     {
         $result = CartService::getCartItems();
-
+        
         return view('client.checkout.index', compact('result'));
     }
 
@@ -22,7 +25,7 @@ class CheckoutController extends Controller
         $data = $request->all();
 
         if ($data['action'] === 'offline') {
-            $result = Order::create([
+            $order = Order::create([
                 'code' => rand(00, 9999),
                 'user_id' => Auth::id(),
                 'customer_name' => $data['name'],
@@ -35,7 +38,28 @@ class CheckoutController extends Controller
                 'payment_method' => 0
             ]);
 
-            if ($result) {
+            if ($order) {
+                $cart_items = CartService::getCartItems();
+                foreach($cart_items['items'] as $item) {
+                    $product = ProductVariant::join('products', 'product_variants.product_id', '=', 'products.id')
+                            ->select('products.*')
+                            ->where('product_variants.id', $item['product_variant_id'])
+                            ->first();
+
+                    OrderDetail::create([
+                        'order_id' => $order->id,
+                        'product_variant_id' => $item['product_variant_id'],
+                        'quantity' => $item['quantity'],
+                        'price' => $product->price * $item['quantity'],
+                    ]);
+                }
+
+                if(Auth::check()) {
+                    CartItem::where('user_id', Auth::id())->delete();
+                } else {
+                    session()->forget('cart');
+                }
+
                 return redirect()->route('payment.success');
             }
         } else {
@@ -105,7 +129,7 @@ class CheckoutController extends Controller
                 'data' => $vnp_Url
             );
 
-            $result = Order::create([
+            $order = Order::create([
                 'code' => rand(00, 9999),
                 'user_id' => Auth::id(),
                 'customer_name' => $data['name'],
@@ -118,7 +142,30 @@ class CheckoutController extends Controller
                 'payment_method' => 1
             ]);
 
+            if($order) {
+                $cart_items = CartService::getCartItems();
+                foreach($cart_items['items'] as $item) {
+                    $product = ProductVariant::join('products', 'product_variants.product_id', '=', 'products.id')
+                            ->select('products.*')
+                            ->where('product_variants.id', $item['product_variant_id'])
+                            ->first();
+
+                    OrderDetail::create([
+                        'order_id' => $order->id,
+                        'product_variant_id' => $item['product_variant_id'],
+                        'quantity' => $item['quantity'],
+                        'price' => $product->price * $item['quantity'],
+                    ]);
+                }
+            }
+
             if (isset($_POST['action'])) {
+                if(Auth::check()) {
+                    CartItem::where('user_id', Auth::id())->delete();
+                } else {
+                    session()->forget('cart');
+                }
+                
                 return redirect()->to($vnp_Url);
                 // header('Location: ' . $vnp_Url);
                 die();

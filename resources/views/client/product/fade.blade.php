@@ -50,8 +50,12 @@
                                 <h2>{{ $product->name }}</h2>
                             </div>
                             <div class="modal_price mb-10">
-                                <span class="new_price">$64.99</span>
-                                <span class="old_price">$78.99</span>
+                                @if(!empty($product->discount) && $product->discount > 0)
+                                <span class="new_price">{{ number_format($product->discount, 0, 0) }} VNĐ</span>
+                                <span class="old_price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                @else
+                                <span class="product_price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                @endif
                             </div>
                             <!-- <div class="modal_content mb-10">
                                 <p>Short-sleeved blouse with feminine draped sleeve detail.</p>
@@ -59,12 +63,12 @@
                             @if(isset($sizes) && !empty($sizes))
                             <div class="modal_size mb-15">
                                 <h2>Size</h2>
-                                <ul>
+                                <ul class="product-size-list">
                                     @foreach($sizes as $size)
                                     <li>
-                                        <label>
-                                            <input type="radio" name="product_size" value="{{ $size->id }}">
-                                            {{ $size->name }}
+                                        <label class="size-option">
+                                            <input type="radio" name="product_size" class="product_size" value="{{ $size->id }}">
+                                            <span class="size-label">{{ $size->name }}</span>
                                         </label>
                                     </li>
                                     @endforeach
@@ -75,12 +79,12 @@
                             @if(isset($colors) && !empty($colors))
                             <div class="modal_size mb-15">
                                 <h2>Màu sắc</h2>
-                                <ul>
+                                <ul class="product-color-list">
                                     @foreach($colors as $color)
                                     <li>
-                                        <label style="display: inline-block; cursor: pointer;">
-                                            <input type="radio" name="product_color" value="{{ $color->id }}" style="display: none;">
-                                            <span style="display: inline-block; width: 20px; height: 20px; background-color: {{ $color->code }}; border-radius: 50%; border: 1px solid #ccc;"></span>
+                                        <label class="color-option" style="--color: {{ $color->code }}">
+                                            <input type="radio" name="product_color" class="color-radio" value="{{ $color->id }}">
+                                            <span class="color-circle"></span>
                                         </label>
                                     </li>
                                     @endforeach
@@ -88,10 +92,14 @@
                             </div>
                             @endif
 
+
                             <div class="modal_add_to_cart mb-15">
-                                <form action="#">
-                                    <input min="0" max="100" step="2" value="1" type="number">
-                                    <button type="submit">Mua hàng</button>
+                                <form action="" method="POST" class="buy-now">
+                                    <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}" />
+                                    <input min="0" max="100" value="1" type="number" id="product_quantity">
+                                    <input type="hidden" name="product_variant_id" id="product_variant_id" value="" />
+                                    <span class="box_add_to_cart"></span>
+                                    @csrf
                                 </form>
                             </div>
                             <!-- <div class="modal_description mb-15">
@@ -114,3 +122,231 @@
         </div>
     </div>
 </div>
+<style>
+    /* Size radio */
+    .product-size-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 10px;
+    }
+
+    .size-option {
+        position: relative;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .size-option input[type="radio"] {
+        display: none;
+    }
+
+    .size-label {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-width: 40px;
+        text-align: center;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .size-option input[type="radio"]:checked+.size-label {
+        background-color: #000;
+        color: #fff;
+        border-color: #000;
+    }
+
+
+    /* Color radio */
+    .product-color-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 10px;
+    }
+
+    .color-option {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .color-option input[type="radio"] {
+        display: none;
+    }
+
+    .color-circle {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: var(--color);
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    /* Hiển thị viền khi chọn */
+    .color-option input[type="radio"]:checked+.color-circle {
+        border: 2px solid #000;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+    }
+
+    .product_price{
+        color: #000 !important;
+    }
+
+    .sold_out {
+        color: red;
+        font-size: 16px;
+        align-items: center;
+        margin-left: 20px;
+    }
+</style>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function() {
+        $('.buy-now').submit(function(e) {
+            e.preventDefault();
+
+            let quantity = $("#product_quantity").val();
+            let product_variant_id = $("#product_variant_id").val();
+            
+            $.ajax({
+                url: '{{ route("cart.add") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_variant_id: product_variant_id,
+                    quantity: quantity
+                },
+                success: function (response) {
+                    $('#modal_box').modal('hide');
+                    $("#shopping_cart").html(response);
+                },
+                error: function (xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        }); 
+
+        $('.product_size').change(function() {
+            let size_id = $('.product_size:checked').val();
+            let color_id = $('.color-radio:checked').val();
+            let product_id = $("#product_id").val();
+            let product_quantity = $("#product_quantity").val();
+            
+            if (!color_id || !product_quantity) {
+                alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
+            } else {
+                $.ajax({
+                    url: '{{ route("check.stock") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        quantity: product_quantity,
+                    },
+                    success: function(response) {
+                        $(".box_add_to_cart").empty();
+                        if (response.status === 'success') {
+                            $("#product_variant_id").val(response.product_variant_id);
+                            $(".box_add_to_cart").append(`<button type="submit" class='btn-buy-now'>Mua hàng</button>`);
+                        } else if (response.status === 'sold_out') {
+                            $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
+                        } else {
+                            $(".box_add_to_cart").empty();
+                        }
+
+                    },
+                    error: function(xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                });
+            }
+
+        });
+
+        $('#product_quantity').change(function() {
+            let size_id = $('.product_size:checked').val();
+            let color_id = $('.color-radio:checked').val();
+            let product_id = $("#product_id").val();
+            let product_quantity = $("#product_quantity").val();
+
+            if (!color_id || !product_quantity) {
+                alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
+            } else {
+                $.ajax({
+                    url: '{{ route("check.stock") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        quantity: product_quantity,
+                    },
+                    success: function(response) {
+                        $(".box_add_to_cart").empty();
+                        if (response.status === 'success') {
+                            $("#product_variant_id").val(response.product_variant_id);
+                            $(".box_add_to_cart").append(`<button type="submit" class='btn-buy-now'>Mua hàng</button>`);
+                        } else if (response.status === 'sold_out') {
+                            $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
+                        } else {
+                            $(".box_add_to_cart").empty();
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                });
+            }
+        });
+
+        $('.color-radio').change(function() {
+            let size_id = $('.product_size:checked').val();
+            let color_id = $('.color-radio:checked').val();
+            let product_id = $("#product_id").val();
+            let product_quantity = $("#product_quantity").val();
+
+            if (!color_id || !product_quantity) {
+                alert('Vui lòng chọn đủ thuộc tính của sản phẩm');
+            } else {
+                $.ajax({
+                    url: '{{ route("check.stock") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                        color_id: color_id,
+                        size_id: size_id,
+                        quantity: product_quantity,
+                    },
+                    success: function(response) {
+                        $(".box_add_to_cart").empty();
+                        if (response.status === 'success') {
+                            $("#product_variant_id").val(response.product_variant_id);
+                            $(".box_add_to_cart").append(`<button type="submit" class='btn-buy-now'>Mua hàng</button>`);
+                        } else if (response.status === 'sold_out') {
+                            $(".box_add_to_cart").append(`<span class='sold_out'>Hết hàng</span>`);
+                        } else {
+                            $(".box_add_to_cart").empty();
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                });
+            }
+        });
+    });
+</script>

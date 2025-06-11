@@ -122,7 +122,11 @@
                                 $total_price += $item['price'] * $item['quantity'];
                                 @endphp
                                 <tr>
-                                    <td> {{ $item['name'] }} <strong> × {{ $item['quantity'] }}</strong></td>
+                                    <td> 
+                                        {{ $item['name'] }} <strong> × {{ $item['quantity'] }}</strong>
+                                        <br>
+                                        <small>{{ $item['color_name'] }}, {{ $item['size_name'] }}</small>
+                                    </td>
                                     <td> {{ number_format($item['price'] * $item['quantity'], 0, 0) }} VNĐ</td>
                                 </tr>
                                 @endforeach

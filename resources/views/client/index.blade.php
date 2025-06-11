@@ -155,7 +155,7 @@
                                         <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
                                     </div>
                                     <div class="product_action">
-                                        <a href="#" class="btn-buy-now" data-id="{{ $new_product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
+                                        <a class="detail_product" data-id="{{ $new_product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
@@ -165,7 +165,7 @@
                                 <div class="product_info">
                                     <ul>
                                         <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
-                                        <li><a class="detail_product" data-id="{{ $new_product->id }}" title="Quick view">Chi tiết</a></li>
+                                        <li><a href="{{ route('detail.product', ['id' => $new_product->id]) }}" title="Quick view">Chi tiết</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -386,31 +386,9 @@
     });
 
     $(document).ready(function() {
-        $('.btn-buy-now').click(function(e) {
-            e.preventDefault();
-
-            let productId = $(this).data('id');
-
-            $.ajax({
-                url: '{{ route("cart.add") }}',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    product_id: productId,
-                    quantity: 1
-                },
-                success: function (response) {
-                    $("#shopping_cart").html(response);
-                },
-                error: function (xhr) {
-                    alert('Có lỗi xảy ra, vui lòng thử lại!');
-                }
-            });
-        }); 
-
         $('.detail_product').click(function() {
             let productId = $(this).data('id');
-            
+
             $.ajax({
                 url: '{{ route("view.detail.product") }}',
                 type: 'POST',

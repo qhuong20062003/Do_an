@@ -7,9 +7,9 @@
         <div class="col-12">
             <div class="breadcrumb_content">
                 <ul>
-                    <li><a href="index.html">home</a></li>
+                    <li><a href="index.html">Trang chủ</a></li>
                     <li><i class="fa fa-angle-right"></i></li>
-                    <li>shop</li>
+                    <li>Sản phẩm</li>
                 </ul>
             </div>
         </div>
@@ -28,22 +28,14 @@
                 </div>
                 <div class="layere_categorie">
                     <ul>
+                        @if(isset($categories) && !empty($categories))
+                        @foreach($categories as $category)
                         <li>
                             <input id="acces" type="checkbox">
-                            <label for="acces">Accessories<span>(1)</span></label>
+                            <label for="acces">{{ $category->name }}<span>(1)</span></label>
                         </li>
-                        <li>
-                            <input id="dress" type="checkbox">
-                            <label for="dress">Dresses <span>(2)</span></label>
-                        </li>
-                        <li>
-                            <input id="tops" type="checkbox">
-                            <label for="tops">Tops<span>(3)</span></label>
-                        </li>
-                        <li>
-                            <input id="bag" type="checkbox">
-                            <label for="bag">HandBags<span>(4)</span></label>
-                        </li>
+                        @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -84,7 +76,7 @@
             <!--price slider end-->
 
             <!--wishlist block start-->
-            <div class="sidebar_widget wishlist mb-30">
+            <!-- <div class="sidebar_widget wishlist mb-30">
                 <div class="block_title">
                     <h3><a href="#">Wishlist</a></h3>
                 </div>
@@ -118,7 +110,7 @@
                     <p>2 products</p>
                     <a href="#">» My wishlists</a>
                 </div>
-            </div>
+            </div> -->
             <!--wishlist block end-->
 
             <!--popular tags area-->
