@@ -21,7 +21,7 @@
                 @if(isset($categories) && !empty($categories))
                 <ul>
                     @foreach($categories->where('parent_id', 0) as $category)
-                    <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> {{ $category->name }}</a>
+                    <li class="has-sub"><a href="{{ route('product.category', ['id' => $category->id, 'slug' => $category->slug ]) }}"><i class="fa fa-caret-right"></i> {{ $category->name }}</a>
                         @if($categories->where('parent_id', $category->id)->count())
                         <ul class="categorie_sub">
                             @foreach($categories->where('parent_id', $category->id) as $category_child)
@@ -37,7 +37,7 @@
             <!--categorie menu end-->
 
             <!--wishlist block start-->
-            <div class="sidebar_widget wishlist mb-35">
+            <!-- <div class="sidebar_widget wishlist mb-35">
                 <div class="block_title">
                     <h3><a href="#">Wishlist</a></h3>
                 </div>
@@ -71,7 +71,7 @@
                     <p>2 products</p>
                     <a href="#">» My wishlists</a>
                 </div>
-            </div>
+            </div> -->
             <!--wishlist block end-->
 
             <!--popular tags area-->
@@ -184,121 +184,33 @@
                 </div>
                 <div class="row">
                     <div class="product_active owl-carousel">
+                        @if(isset($discount_products) && !empty($discount_products))
+                        @foreach($discount_products as $discount_product)
                         <div class="col-lg-3">
                             <div class="single_product">
                                 <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product7.jpg') }}" alt=""></a>
+                                    <a href="{{ route('detail.product', ['id' => $discount_product->id]) }}"><img src="{{ $discount_product->feature_image_path }}" alt=""></a>
                                     <div class="hot_img">
                                         <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt="">
                                     </div>
                                     <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a class="detail_product" data-id="{{ $discount_product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">$60.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Maecenas sit amet</a></h3>
+                                    <span class="product_price">{{ number_format($discount_product->price, 0, 0) }} VNĐ</span>
+                                    <h3 class="product_title"><a href="{{ route('detail.product', ['id' => $discount_product->id]) }}">{{ $discount_product->name }}</a></h3>
                                 </div>
                                 <div class="product_info">
                                     <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
+                                        <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
+                                        <li><a href="{{ route('detail.product', ['id' => $discount_product->id]) }}" title="Quick view">Chi tiết</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product8.jpg') }}" alt=""></a>
-                                    <div class="img_icone">
-                                        <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$50.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Sed non turpis</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product9.jpg') }}" alt=""></a>
-                                    <div class="img_icone">
-                                        <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$70.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Donec ac congue</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product3.jpg') }}" alt=""></a>
-                                    <div class="hot_img">
-                                        <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$60.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="{{ asset('client\assets\img\product\product2.jpg') }}" alt=""></a>
-                                    <div class="img_icone">
-                                        <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
-                                    </div>
-                                    <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <span class="product_price">$50.00</span>
-                                    <h3 class="product_title"><a href="single-product.html">Phasellus a arcu</a></h3>
-                                </div>
-                                <div class="product_info">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -374,7 +286,7 @@
 
 <!-- modal area start -->
 <div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
-    
+
 </div>
 <!-- modal area end -->
 
@@ -396,11 +308,11 @@
                     _token: '{{ csrf_token() }}',
                     product_id: productId,
                 },
-                success: function (response) {
+                success: function(response) {
                     $('#modal_box').html(response);
                     $('#modal_box').modal('show');
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     alert('Có lỗi xảy ra, vui lòng thử lại!');
                 }
             });

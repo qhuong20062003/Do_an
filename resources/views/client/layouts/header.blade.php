@@ -49,8 +49,9 @@
             <div class="col-lg-9 col-md-9">
                 <div class="header_right_info">
                     <div class="search_bar">
-                        <form action="#">
-                            <input placeholder="Tìm kiếm..." type="text">
+                        <form action="{{ route('search.product') }}" method="POST">
+                            <input placeholder="Tìm kiếm..." type="text" name="text">
+                            @csrf
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -105,9 +106,12 @@
                         <a href="#" id="accountToggle">{{ Auth::user()->name }} <i class="fa fa-angle-down"></i></a>
 
                         <div class="account_menu" style="display: none;">
-                            <a href="{{ route('logout') }}">
-                                Đăng xuất
-                            </a>
+                            <ul>
+                                <li><a href="{{ route('my.profile') }}">Hồ sơ</a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}">Đăng xuất</a>
+                                </li>
+                            </ul>
                         </div>
                         @else
                         <a href="{{ route('login') }}">Đăng nhập</a>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Auth;
@@ -117,6 +118,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     //Orders
     Route::prefix('orders')->group(function () {
         Route::get('/', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('/edit/{id}', [AdminOrderController::class, 'edit'])->name('orders.edit');
+        Route::post('/update', [AdminOrderController::class, 'update'])->name('orders.update');
     });
 });
 
@@ -136,6 +139,11 @@ Route::post('/gui-dang-ky', [ClientLoginController::class, 'register'])->name('p
 
 Route::get('/', [ClientHomeController::class, 'index'])->name('index');
 Route::get('/trang-chu', [ClientHomeController::class, 'index']);
+Route::get('/ho-so', [ProfileController::class, 'myProfile'])->name('my.profile');
+Route::get('/chi-tiet-don-hang/{id}', [ProfileController::class, 'detailOrder'])->name('detail.order');
+Route::get('/huy-don-hang/{id}', [ProfileController::class, 'cancelOrder'])->name('cancel.order');
+Route::post('/cap-nhat-thong-tin-khach-hang', [ProfileController::class, 'updateProfile'])->name('update.profile');
+Route::post('/tim-kiem-san-pham', [ClientHomeController::class, 'search'])->name('search.product');
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
 Route::get('/menu/{id}-{slug}', [ProductController::class, 'getProductByMenu'])->name('product.menu');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');

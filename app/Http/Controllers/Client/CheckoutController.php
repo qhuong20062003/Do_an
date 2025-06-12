@@ -52,6 +52,10 @@ class CheckoutController extends Controller
                         'quantity' => $item['quantity'],
                         'price' => $product->price * $item['quantity'],
                     ]);
+
+                    $product_variant = ProductVariant::findOrFail($item['product_variant_id']);
+                    $product_variant->stock = $product_variant->stock - $item['quantity'];
+                    $product_variant->save();
                 }
 
                 if(Auth::check()) {
@@ -156,6 +160,10 @@ class CheckoutController extends Controller
                         'quantity' => $item['quantity'],
                         'price' => $product->price * $item['quantity'],
                     ]);
+
+                    $product_variant = ProductVariant::findOrFail($item['product_variant_id']);
+                    $product_variant->stock = $product_variant->stock - $item['quantity'];
+                    $product_variant->save();
                 }
             }
 

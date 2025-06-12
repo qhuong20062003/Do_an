@@ -43,7 +43,7 @@
 
             <!--color area start-->
             <div class="sidebar_widget color">
-                <h2>Color</h2>
+                <h2>Màu sắc</h2>
                 <div class="widget_color">
                     <ul>
 
@@ -66,7 +66,7 @@
 
             <!--price slider start-->
             <div class="sidebar_widget price">
-                <h2>Price</h2>
+                <h2>Giá</h2>
                 <div class="ca_search_filters">
 
                     <input type="text" name="text" id="amount">
@@ -116,18 +116,12 @@
             <!--popular tags area-->
             <div class="sidebar_widget tags  mb-30">
                 <div class="block_title">
-                    <h3>popular tags</h3>
+                    <h3>Tags</h3>
                 </div>
                 <div class="block_tags">
-                    <a href="#">ipod</a>
-                    <a href="#">sam sung</a>
-                    <a href="#">apple</a>
-                    <a href="#">iphone 5s</a>
-                    <a href="#">superdrive</a>
-                    <a href="#">shuffle</a>
-                    <a href="#">nano</a>
-                    <a href="#">iphone 4s</a>
-                    <a href="#">canon</a>
+                    <a href="#">ao</a>
+                    <a href="#">quan</a>
+                    <a href="#">phu kien</a>
                 </div>
             </div>
             <!--popular tags end-->
@@ -146,7 +140,7 @@
             <!--newsletter block end-->
 
             <!--special product start-->
-            <div class="sidebar_widget special">
+            <!-- <div class="sidebar_widget special">
                 <div class="block_title">
                     <h3>Special Products</h3>
                 </div>
@@ -192,7 +186,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--special product end-->
 
 
