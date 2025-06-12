@@ -59,7 +59,7 @@ class ProfileController extends Controller
         $user->birth = $request->birth;
         if($request->new_password) {
             if($request->old_password) {
-                if(Hash::make($request->old_password) != $user->password) {
+                if(!Hash::check($request->old_password, $user->password)) {
                     return redirect()->back()->with('error', 'Mật khẩu cũ không khớp');
                 } else {
                     $user->password = Hash::make($request->new_password);
