@@ -28,6 +28,7 @@
                     <ul role="tablist" class="nav flex-column dashboard-list">
                         <li><a href="#account-details" data-toggle="tab" class="nav-link active">Thông tin khách hàng</a></li>
                         <li> <a href="#orders" data-toggle="tab" class="nav-link">Đơn hàng</a></li>
+                        <li> <a href="#dashboard" data-toggle="tab" class="nav-link">Đổi mật khẩu</a></li>
                         <li><a href="{{ route('logout') }}" class="nav-link">Đăng xuất</a></li>
                     </ul>
                 </div>
@@ -35,10 +36,27 @@
             <div class="col-sm-12 col-md-9 col-lg-9">
                 <!-- Tab panes -->
                 <div class="tab-content dashboard_content">
-                    <!-- <div class="tab-pane fade" id="dashboard">
-                        <h3>Dashboard </h3>
-                        <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">Edit your password and account details.</a></p>
-                    </div> -->
+                    <div class="tab-pane fade" id="dashboard">
+                        <h3>Đổi mật khẩu </h3>
+                        <div class="login">
+                            <div class="login_form_container">
+                                <div class="account_login_form">
+                                    <form action="{{ route('change.password') }}" method="POST">
+                                        <label>Mật khẩu cũ</label>
+                                        <input type="password" name="old_password">
+                                        <label>Mật khẩu mới</label>
+                                        <input type="password" name="new_password">
+                                        <label>Xác nhận mật khẩu mới</label>
+                                        <input type="password" name="confirm_password">
+                                        @csrf
+                                        <div class="save_button primary_btn default_button">
+                                            <button type="submit" class="btn btn-success">Cập nhật</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="orders">
                         <h3>Đơn hàng của bạn</h3>
                         <div class="coron_table table-responsive text-center">

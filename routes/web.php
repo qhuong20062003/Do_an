@@ -136,6 +136,10 @@ Route::get('/dang-nhap', [ClientLoginController::class, 'showform'])->name('logi
 Route::get('/dang-ky', [ClientLoginController::class, 'showformRegister'])->name('register');
 Route::post('/gui-dang-nhap', [ClientLoginController::class, 'login'])->name('post.login');
 Route::post('/gui-dang-ky', [ClientLoginController::class, 'register'])->name('post.register');
+Route::get('/quen-mat-khau', [ClientLoginController::class, 'forgot'])->name('forgot.password');
+Route::post('/gui-otp-email', [ClientLoginController::class, 'sendOtpEmail'])->name('otp.email');
+Route::post('/xac-thuc-otp', [ClientLoginController::class, 'verify_otp'])->name('verify.otp');
+Route::post('/dat-lai-mat-khau', [ClientLoginController::class, 'resetPassword'])->name('reset.password');
 
 Route::get('/', [ClientHomeController::class, 'index'])->name('index');
 Route::get('/trang-chu', [ClientHomeController::class, 'index']);
@@ -143,6 +147,7 @@ Route::get('/ho-so', [ProfileController::class, 'myProfile'])->name('my.profile'
 Route::get('/chi-tiet-don-hang/{id}', [ProfileController::class, 'detailOrder'])->name('detail.order');
 Route::get('/huy-don-hang/{id}', [ProfileController::class, 'cancelOrder'])->name('cancel.order');
 Route::post('/cap-nhat-thong-tin-khach-hang', [ProfileController::class, 'updateProfile'])->name('update.profile');
+Route::post('/doi-mat-khau', [ProfileController::class, 'changePassword'])->name('change.password');
 Route::post('/tim-kiem-san-pham', [ClientHomeController::class, 'search'])->name('search.product');
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
 Route::get('/menu/{id}-{slug}', [ProductController::class, 'getProductByMenu'])->name('product.menu');

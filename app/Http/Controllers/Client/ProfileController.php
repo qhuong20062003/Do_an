@@ -57,19 +57,35 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->birth = $request->birth;
-        if($request->new_password) {
-            if($request->old_password) {
-                if(!Hash::check($request->old_password, $user->password)) {
-                    return redirect()->back()->with('error', 'Mật khẩu cũ không khớp');
-                } else {
-                    $user->password = Hash::make($request->new_password);
-                }
-            } else {
-                return redirect()->back()->with('error', 'Vui lòng nhập mật khẩu cũ');
-            }
-        } 
         $user->save();
 
         return redirect()->back()->with('success', 'Cập nhật thông tin khách hàng thành công');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = User::findOrFail(Auth::id());
+        
+        if(empty($request->new_password)) {
+            return redirect()->back()->with('error', 'Vui lòng nhập mật khẩu mới');
+        } 
+        if(empty($request->old_password)) {
+            return redirect()->back()->with('error', 'Vui lòng nhập mật khẩu cũ');
+        }
+        if(empty($request->confirm_password)) {
+            return redirect()->back()->with('error', 'Vui lòng nhập xác nhận mật khẩu');
+        }
+
+        if($request->new_password != $request->confirm_password) {
+            return redirect()->back()->with('error', 'Mật khẩu mới và xác nhận mật khẩu không khớp');
+        } else {
+            if(!Hash::check($request->old_password, $user->password)) {
+                return redirect()->back()->with('error', 'Mật khẩu cũ không khớp');
+            } else {
+                $user->password = Hash::make($request->new_password);
+
+                return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
+            }
+        } 
     }
 }

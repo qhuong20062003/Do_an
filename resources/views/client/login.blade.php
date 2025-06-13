@@ -25,6 +25,18 @@
         <div class="col-lg-6 col-md-6">
             <div class="account_form">
                 <h2>Đăng nhập</h2>
+                {{-- Hiển thị thông báo lỗi --}}
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                </div>
+                @endif
+                {{-- Hiển thị thông báo thành công --}}
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+                @endif
                 <form action="{{ route('post.login') }}" method="POST">
                     <p>
                         <label>Email <span>*</span></label>
@@ -41,9 +53,9 @@
                             Lưu đăng nhập
                         </label>
                         <a href="{{ route('register') }}">Đăng ký</a>
-                        <a href="#">Quên mật khẩu?</a>
+                        <a href="{{ route('forgot.password') }}">Quên mật khẩu?</a>
                     </div>
-                @csrf
+                    @csrf
                 </form>
             </div>
         </div>
