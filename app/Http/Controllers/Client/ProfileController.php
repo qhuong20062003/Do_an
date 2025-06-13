@@ -83,6 +83,7 @@ class ProfileController extends Controller
                 return redirect()->back()->with('error', 'Mật khẩu cũ không khớp');
             } else {
                 $user->password = Hash::make($request->new_password);
+                $user->save();
 
                 return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
             }
