@@ -150,7 +150,7 @@
                         <div class="col-lg-3">
                             <div class="single_product">
                                 <div class="product_thumb">
-                                    <a href="{{ route('detail.product', ['id' => $new_product->id]) }}"><img src="{{ $new_product->feature_image_path }}" alt=""></a>
+                                    <a href="{{ route('detail.product', ['id' => $new_product->id]) }}"><img src="{{ $new_product->feature_image_path }}" alt="" class="product-image"></a>
                                     <div class="img_icone">
                                         <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
                                     </div>
@@ -189,7 +189,7 @@
                         <div class="col-lg-3">
                             <div class="single_product">
                                 <div class="product_thumb">
-                                    <a href="{{ route('detail.product', ['id' => $discount_product->id]) }}"><img src="{{ $discount_product->feature_image_path }}" alt=""></a>
+                                    <a href="{{ route('detail.product', ['id' => $discount_product->id]) }}"><img src="{{ $discount_product->feature_image_path }}" class="product-image" alt=""></a>
                                     <div class="hot_img">
                                         <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt="">
                                     </div>
@@ -319,4 +319,10 @@
         });
     });
 </script>
+<style>
+    .product-image{
+        object-fit: cover;
+        min-height: 252px;
+    }
+</style>
 @endsection

@@ -249,7 +249,7 @@
                                             <img src="assets\img\cart\span-new.png" alt="">
                                         </div>
                                         <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
+                                            <a class="detail_product" data-id="{{ $product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
                                         </div>
                                     </div>
                                     <div class="product_content">
@@ -307,7 +307,7 @@
                                         </div>
                                         <div class="add_links">
                                             <ul>
-                                                <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a class="detail_product" data-id="{{ $product->id }}" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
                                                 <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
                                                 <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                             </ul>
@@ -351,4 +351,40 @@
     </div>
 </div>
 <!--pos home section end-->
+
+<!-- modal area start -->
+<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
+
+</div>
+<!-- modal area end -->
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function() {
+        $('.detail_product').click(function() {
+            let productId = $(this).data('id');
+
+            $.ajax({
+                url: '{{ route("view.detail.product") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                },
+                success: function(response) {
+                    $('#modal_box').html(response);
+                    $('#modal_box').modal('show');
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        });
+    });
+</script>
 @endsection

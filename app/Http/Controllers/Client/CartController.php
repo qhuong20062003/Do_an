@@ -207,17 +207,17 @@ class CartController extends Controller
 
     public function delete_cart_header(Request $request)
     {
-        $product_id = $request->product_id;
+        $product_variant_id = $request->product_variant_id;
 
         if(Auth::check()) {
             CartItem::where('user_id', Auth::id())
-                ->where('product_id', $product_id)
+                ->where('product_variant_id', $product_variant_id)
                 ->delete();
         } else {
             $cart = session()->get('cart', []);
 
-            if(isset($cart[$product_id])) {
-                unset($cart[$product_id]);
+            if(isset($cart[$product_variant_id])) {
+                unset($cart[$product_variant_id]);
                 session()->put('cart', $cart);
             }
         }

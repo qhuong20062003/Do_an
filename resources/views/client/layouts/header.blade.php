@@ -503,15 +503,14 @@
         });
 
         $('.remove_cart_item').click(function() {
-
-            let productId = $(this).data('id');
+            let productVariantId = $(this).data('id');
 
             $.ajax({
                 url: '{{ route("cart.delete.header") }}',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    product_id: productId,
+                    product_variant_id: productVariantId,
                 },
                 success: function(response) {
                     $("#shopping_cart").html(response);
