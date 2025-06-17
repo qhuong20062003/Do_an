@@ -31,7 +31,7 @@ class LoginController extends Controller
         if ($status) {
             $user = Auth::user();
             if ($user->role === 'admin') {
-                return redirect()->route('categories.index');
+                return redirect()->route('admin.dashboard');
             } else {
                 return redirect()->route('index');
             }

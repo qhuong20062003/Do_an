@@ -36,6 +36,7 @@ Route::post('/admin', [AdminController::class, 'postLoginAdmin']);
 // Route::get('/product/{id}', [AdminProductController::class, 'detailsProduct'])->name('product.details');
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::prefix('categories')->group(function () {
         Route::get('/', [AdminCategoryController::class, 'index'])->name('categories.index');
         Route::get('/create', [AdminCategoryController::class, 'create'])->name('categories.create');
