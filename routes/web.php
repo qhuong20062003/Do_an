@@ -150,6 +150,7 @@ Route::get('/huy-don-hang/{id}', [ProfileController::class, 'cancelOrder'])->nam
 Route::post('/cap-nhat-thong-tin-khach-hang', [ProfileController::class, 'updateProfile'])->name('update.profile');
 Route::post('/doi-mat-khau', [ProfileController::class, 'changePassword'])->name('change.password');
 Route::post('/tim-kiem-san-pham', [ClientHomeController::class, 'search'])->name('search.product');
+Route::post('/loc-san-pham', [ProductController::class, 'filterProduct'])->name('filter.product');
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
 Route::get('/menu/{id}-{slug}', [ProductController::class, 'getProductByMenu'])->name('product.menu');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');

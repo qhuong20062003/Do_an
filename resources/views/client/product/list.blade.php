@@ -27,12 +27,12 @@
                     <h4>Danh mục sản phẩm</h4>
                 </div>
                 <div class="layere_categorie">
-                    <ul>
-                        @if(isset($categories) && !empty($categories))
-                        @foreach($categories as $category)
+                    <ul class="category-list">
+                        @if(isset($data) && !empty($data))
+                        @foreach($data as $category)
                         <li>
-                            <input id="acces" type="checkbox">
-                            <label for="acces">{{ $category->name }}<span>(1)</span></label>
+                            <input type="radio" name="category" value="{{ $category['id'] }}">
+                            <label for="acces">{{ $category['name'] }}<span>({{ $category['count'] }})</span></label>
                         </li>
                         @endforeach
                         @endif
@@ -45,34 +45,35 @@
             <div class="sidebar_widget color">
                 <h2>Màu sắc</h2>
                 <div class="widget_color">
-                    <ul>
-
-                        <li><a href="#">Black <span>(10)</span></a></li>
-
-                        <li><a href="#">Orange <span>(12)</span></a></li>
-
-                        <li> <a href="#">Blue <span>(14)</span></a></li>
-
-                        <li><a href="#">Yellow <span>(15)</span></a></li>
-
-                        <li><a href="#">pink <span>(16)</span></a></li>
-
-                        <li><a href="#">green <span>(11)</span></a></li>
-
+                    <ul class="color-list">
+                        @if(isset($colors) && !empty($colors))
+                        @foreach($colors as $color)
+                        <li>
+                            <label class="color-option">
+                                <input type="checkbox" name="color[]" value="{{ $color->id }}">
+                                <span class="color-circle" style="background-color: {{ $color->code }};"></span>
+                                {{ $color->name }}
+                            </label>
+                        </li>
+                        @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
+
             <!--color area end-->
 
             <!--price slider start-->
             <div class="sidebar_widget price">
-                <h2>Giá</h2>
+                <h2>Khoảng Giá</h2>
                 <div class="ca_search_filters">
-
-                    <input type="text" name="text" id="amount">
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; font-weight:bold;">
+                    </p>
                     <div id="slider-range"></div>
                 </div>
             </div>
+
             <!--price slider end-->
 
             <!--wishlist block start-->
@@ -114,7 +115,7 @@
             <!--wishlist block end-->
 
             <!--popular tags area-->
-            <div class="sidebar_widget tags  mb-30">
+            <!-- <div class="sidebar_widget tags  mb-30">
                 <div class="block_title">
                     <h3>Tags</h3>
                 </div>
@@ -123,11 +124,11 @@
                     <a href="#">quan</a>
                     <a href="#">phu kien</a>
                 </div>
-            </div>
+            </div> -->
             <!--popular tags end-->
 
             <!--newsletter block start-->
-            <div class="sidebar_widget newsletter mb-30">
+            <!-- <div class="sidebar_widget newsletter mb-30">
                 <div class="block_title">
                     <h3>newsletter</h3>
                 </div>
@@ -136,7 +137,7 @@
                     <input placeholder="Your email address" type="text">
                     <button type="submit">Subscribe</button>
                 </form>
-            </div>
+            </div> -->
             <!--newsletter block end-->
 
             <!--special product start-->
@@ -236,7 +237,7 @@
 
             <!--shop tab product-->
             <div class="shop_tab_product">
-                <div class="tab-content" id="myTabContent">
+                <div class="tab-content list-product" id="myTabContent">
                     <div class="tab-pane fade show active" id="large" role="tabpanel">
                         <div class="row">
                             @if(isset($products) && !empty($products))
@@ -366,6 +367,25 @@
     });
 
     $(document).ready(function() {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 1000000,
+            step: 10000,
+            values: [100000, 500000],
+            slide: function(event, ui) {
+                $("#amount").val(ui.values[0].toLocaleString() + "₫ - " + ui.values[1].toLocaleString() + "₫");
+            },
+            change: function(event, ui) {
+                filterProducts();
+            }
+        });
+        // Hiển thị mặc định
+        $("#amount").val(
+            $("#slider-range").slider("values", 0).toLocaleString() + "₫ - " +
+            $("#slider-range").slider("values", 1).toLocaleString() + "₫"
+        );
+
         $('.detail_product').click(function() {
             let productId = $(this).data('id');
 
@@ -385,6 +405,82 @@
                 }
             });
         });
+
+        $('.color-list input[type="checkbox"]').on('change', function () {
+            filterProducts(); 
+        });
+
+        $('.category-list input[type="radio"]').on('change', function () {
+            filterProducts(); 
+        });
+
+        function filterProducts() {
+            let priceRange = $("#slider-range").slider("values");
+            let priceMin = priceRange[0];
+            let priceMax = priceRange[1];
+
+            let colors = [];
+            $('.color-list input[type="checkbox"]:checked').each(function () {
+                colors.push($(this).val());
+            });
+
+            let category_id = $('.category-list input[type="radio"]:checked').val();
+            
+            $.ajax({
+                url: '{{ route("filter.product") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    colors: colors,
+                    category_id: category_id,
+                    price_min: priceMin,
+                    price_max: priceMax
+                },
+                success: function(response) {
+                    console.log(response);
+                    
+                    $(".list-product").html(response);
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        }
     });
 </script>
+<style>
+    .color-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .color-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .color-option input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+    }
+
+    .color-circle {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+    }
+
+    .count {
+        color: #888;
+        margin-left: auto;
+        font-size: 13px;
+    }
+</style>
 @endsection

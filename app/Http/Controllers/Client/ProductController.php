@@ -17,16 +17,33 @@ class ProductController extends Controller
     {
         $products = Product::where('category_id', $id)->get();
         $categories = Category::where('parent_id', 0)->get();
+        $colors = Colors::all();
 
-        return view('client.product.list', compact('products', 'categories'));
+        return view('client.product.list', compact('products', 'categories', 'colors'));
     }
 
     public function getProductByMenu(string $id)
     {
+        $data = [];
         $products = Product::where('menu_id', $id)->get();
         $categories = Category::where('parent_id', 0)->get();
+        $colors = Colors::all();
 
-        return view('client.product.list', compact('products', 'categories'));
+        foreach($categories as $category) {
+            $child_ids = Category::where('parent_id', $category->id)->pluck('id')->toArray();
+
+            $category_ids = array_merge([$category->id], $child_ids);
+            
+            $product_count = Product::whereIn('category_id', $category_ids)->count();
+
+            $data[] = [
+                'id' => $category->id,
+                'name' => $category->name,
+                'count' => $product_count
+            ];
+        }
+
+        return view('client.product.list', compact('data', 'products', 'colors'));
     }
 
     public function detail(string $id)
@@ -80,5 +97,45 @@ class ProductController extends Controller
         $product_images = ProductImage::where('product_id', $product_id)->get();
 
         return view('client.product.fade', compact('product', 'colors', 'sizes', 'product_images'));
+    }
+
+    public function filterProduct(Request $request)
+    {
+        $query = Product::query();
+
+        if($request->filled('category_id')) {
+            $category_id = $request->category_id;
+
+            $child_ids = Category::where('parent_id', $category_id)->pluck('id')->toArray();
+
+            $list_category_id = array_merge([$category_id], $child_ids);
+            
+            $query->whereIn('category_id', $list_category_id);
+        }
+
+        if($request->has('colors')) {
+            $color_id = is_array($request->colors) ? $request->colors : [$request->colors];
+
+            $product_id_by_color = ProductVariant::whereIn('color_id', $color_id)
+                                ->pluck('product_id')
+                                ->unique()
+                                ->toArray();
+
+            $query->whereIn('id', $product_id_by_color);
+        }
+
+        if($request->filled('price_min') && $request->filled('price_max')) {
+            $min = (float) $request->price_min;
+            $max = (float) $request->price_max;
+
+            $query->where(function($q) use ($min, $max) {
+                $q->whereBetween('price', [$min, $max])
+                    ->orWhereBetween('discount', [$min, $max]);
+            }); 
+        }
+
+        $products = $query->get();
+
+        return view('client.product.filter', compact('products'));
     }
 }
