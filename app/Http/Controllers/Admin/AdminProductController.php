@@ -138,7 +138,7 @@ class AdminProductController extends Controller
         $product_variants = $this->productVariant->where('product_id', $product->id)->get();
         $colors = $this->colors->get();
         $sizes = $this->sizes->get();
-        return view('admin.product.edit', compact('htmlOption', 'product', 'product_variants', 'colors', 'sizes', 'menus'));
+        return view('admin.product.edit', compact('htmlOption', 'product', 'product_variants', 'colors', 'sizes'));
     }
     public function update(Request $request, $id)
     {
