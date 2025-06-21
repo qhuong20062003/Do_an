@@ -7,7 +7,6 @@ use App\Http\Requests\ProductAddRequest;
 use App\Models\Category;
 use App\Components\Recusive;
 use App\Models\Colors;
-use App\Models\Menu;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -34,20 +33,18 @@ class AdminProductController extends Controller
     private $product;
     private $productImage;
     private $tag;
-    private $menu;
     private $productTag;
     private $colors;
     private $sizes;
     private $productVariant;
 
-    public function __construct(Category $category, Product $product, ProductImage $productImage, Tag $tag, ProductTag $productTag, Menu $menu, Colors $colors, Sizes $sizes, ProductVariant $productVariant)
+    public function __construct(Category $category, Product $product, ProductImage $productImage, Tag $tag, ProductTag $productTag, Colors $colors, Sizes $sizes, ProductVariant $productVariant)
     {
         $this->category = $category;
         $this->product = $product;
         $this->productImage = $productImage;
         $this->tag = $tag;
         $this->productTag = $productTag;
-        $this->menu = $menu;
         $this->colors = $colors;
         $this->sizes = $sizes;
         $this->productVariant = $productVariant;
@@ -63,12 +60,10 @@ class AdminProductController extends Controller
     public function create()
     {
         $htmlOption = $this->getCategory($parentId = '');
-        $menu_parent = $this->menu->where('slug', 'san-pham')->first();
-        $menus = $this->menu->where('parent_id', $menu_parent->id)->get();
         $colors= $this->colors->get();
         $sizes = $this->sizes->get();
 
-        return view('admin.product.add', compact('htmlOption', 'menus', 'colors', 'sizes'));
+        return view('admin.product.add', compact('htmlOption', 'colors', 'sizes'));
     }
     public function getCategory($parentId)
     {
@@ -87,7 +82,6 @@ class AdminProductController extends Controller
                 'content' => $request->content,
                 'user_id' => auth()->id(),
                 'category_id' => $request->category_id,
-                'menu_id' => $request->menu_id
             ];
             $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
             if (!empty($dataUploadFeatureImage)) {
@@ -139,8 +133,6 @@ class AdminProductController extends Controller
 
     public function edit($id)
     {
-        $menu_parent = $this->menu->where('slug', 'san-pham')->first();
-        $menus = $this->menu->where('parent_id', $menu_parent->id)->get();
         $product = $this->product->find($id);
         $htmlOption = $this->getCategory($product->category_id);
         $product_variants = $this->productVariant->where('product_id', $product->id)->get();
@@ -158,7 +150,6 @@ class AdminProductController extends Controller
                 'discount' => $request->discount,
                 'content' => $request->content,
                 'user_id' => auth()->id(),
-                'menu_id' => $request->menu_id,
                 'category_id' => $request->category_id
             ];
             $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');

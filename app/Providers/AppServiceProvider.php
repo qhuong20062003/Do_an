@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -25,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        $menus = Menu::all();
-        View::share('menus', $menus);
+        $catagories = Category::get();
+        View::share('catagories', $catagories);
     }
 }

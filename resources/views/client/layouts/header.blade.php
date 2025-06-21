@@ -128,7 +128,6 @@
             <div class="col-12">
                 <div class="main_menu_inner">
                     <div class="main_menu d-none d-lg-block">
-                        @if(isset($menus) && !empty($menus))
                         <nav>
                             <ul>
                                 <!-- <li class="active"><a href="index.html">Home</a>
@@ -141,14 +140,16 @@
                                         </div>
                                     </div>
                                 </li> -->
-                                @foreach($menus->where('parent_id', 0) as $menu)
-                                <li><a href="shop.html">{{ $menu->name }}</a>
-                                    @if($menus->where('parent_id', $menu->id)->count())
+                                <li><a href="shop.html">Trang chủ</a></li>
+                                <li><a href="shop.html">Về chúng tôi</a></li>
+                                @foreach($catagories->where('parent_id', 0) as $menu)
+                                <li><a href="{{ route('product.category', ['id' => $menu->id, 'slug' => $menu->slug]) }}">{{ $menu->name }}</a>
+                                    @if($catagories->where('parent_id', $menu->id)->count())
                                     <div class="mega_menu jewelry">
                                         <div class="mega_items jewelry">
                                             <ul>
-                                                @foreach($menus->where('parent_id', $menu->id) as $menu_child)
-                                                <li><a href="{{ route('product.menu', ['id' => $menu_child->id, 'slug' => $menu_child->slug]) }}">{{ $menu_child->name }}</a></li>
+                                                @foreach($catagories->where('parent_id', $menu->id) as $menu_child)
+                                                <li><a href="{{ route('product.category', ['id' => $menu_child->id, 'slug' => $menu_child->slug]) }}">{{ $menu_child->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -156,6 +157,8 @@
                                     @endif
                                 </li>
                                 @endforeach
+                                <li><a href="shop.html">Tin tức</a></li>
+                                <li><a href="shop.html">Liên hệ</a></li>
                                 <!-- <li><a href="#">women</a>
                                     <div class="mega_menu">
                                         <div class="mega_top fix">
@@ -287,7 +290,6 @@
 
                             </ul>
                         </nav>
-                        @endif
                     </div>
                     <div class="mobile-menu d-lg-none">
                         <nav>

@@ -15,35 +15,19 @@ class ProductController extends Controller
 {
     public function list(string $id)
     {
-        $products = Product::where('category_id', $id)->get();
-        $categories = Category::where('parent_id', 0)->get();
         $colors = Colors::all();
-
-        return view('client.product.list', compact('products', 'categories', 'colors'));
-    }
-
-    public function getProductByMenu(string $id)
-    {
-        $data = [];
-        $products = Product::where('menu_id', $id)->get();
-        $categories = Category::where('parent_id', 0)->get();
-        $colors = Colors::all();
-
-        foreach($categories as $category) {
-            $child_ids = Category::where('parent_id', $category->id)->pluck('id')->toArray();
-
-            $category_ids = array_merge([$category->id], $child_ids);
-            
-            $product_count = Product::whereIn('category_id', $category_ids)->count();
-
-            $data[] = [
-                'id' => $category->id,
-                'name' => $category->name,
-                'count' => $product_count
-            ];
+        $category = Category::find($id);
+        if($category->parent_id == 0) {
+            $child_ids = Category::where('parent_id', $id)->pluck('id')->toArray();
+            $category_ids = array_merge([$id], $child_ids);
+            $products = Product::whereIn('category_id', $category_ids)->get();
+            $categories = Category::where('parent_id', $id)->get();
+        } else {
+            $products = Product::where('category_id', $id)->get();
+            $categories = collect();
         }
-
-        return view('client.product.list', compact('data', 'products', 'colors'));
+        
+        return view('client.product.list', compact('products', 'categories', 'colors', 'id'));
     }
 
     public function detail(string $id)
@@ -102,15 +86,22 @@ class ProductController extends Controller
     public function filterProduct(Request $request)
     {
         $query = Product::query();
+        $id = $request->id;
 
         if($request->filled('category_id')) {
             $category_id = $request->category_id;
-
-            $child_ids = Category::where('parent_id', $category_id)->pluck('id')->toArray();
-
-            $list_category_id = array_merge([$category_id], $child_ids);
             
-            $query->whereIn('category_id', $list_category_id);
+            $query->where('category_id', $category_id);
+        } else {
+            $category = Category::find($id);
+
+            if($category && $category->parent_id == 0) {
+                $child_ids = Category::where('parent_id', $id)->pluck('id')->toArray();
+                $category_ids = array_merge([$id], $child_ids);
+                $query->whereIn('category_id', $category_ids);
+            } else {
+                $query->where('category_id', $id);
+            }
         }
 
         if($request->has('colors')) {

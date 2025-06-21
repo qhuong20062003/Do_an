@@ -152,7 +152,6 @@ Route::post('/doi-mat-khau', [ProfileController::class, 'changePassword'])->name
 Route::post('/tim-kiem-san-pham', [ClientHomeController::class, 'search'])->name('search.product');
 Route::post('/loc-san-pham', [ProductController::class, 'filterProduct'])->name('filter.product');
 Route::get('/danh-muc/{id}-{slug}', [ProductController::class, 'list'])->name('product.category');
-Route::get('/menu/{id}-{slug}', [ProductController::class, 'getProductByMenu'])->name('product.menu');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'detail'])->name('detail.product');
 Route::post('/xem-chi-tiet-san-pham', [ProductController::class, 'viewDetail'])->name('view.detail.product');
 Route::post('/kiem-tra-ton-kho', [ProductController::class, 'checkStock'])->name('check.stock');

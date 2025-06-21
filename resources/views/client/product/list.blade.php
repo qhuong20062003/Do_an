@@ -21,6 +21,7 @@
 <div class=" pos_home_section">
     <div class="row pos_home">
         <div class="col-lg-3 col-md-12">
+            @if(isset($categories) && count($categories) > 0)
             <!--layere categorie"-->
             <div class="sidebar_widget shop_c">
                 <div class="categorie__titile">
@@ -28,18 +29,17 @@
                 </div>
                 <div class="layere_categorie">
                     <ul class="category-list">
-                        @if(isset($data) && !empty($data))
-                        @foreach($data as $category)
+                        @foreach($categories as $category)
                         <li>
                             <input type="radio" name="category" value="{{ $category['id'] }}">
                             <label for="acces">{{ $category['name'] }}<span>({{ $category['count'] }})</span></label>
                         </li>
                         @endforeach
-                        @endif
                     </ul>
                 </div>
             </div>
             <!--layere categorie end-->
+            @endif
 
             <!--color area start-->
             <div class="sidebar_widget color">
@@ -415,10 +415,10 @@
         });
 
         function filterProducts() {
+            var id = <?php echo json_encode($id) ?>;
             let priceRange = $("#slider-range").slider("values");
             let priceMin = priceRange[0];
             let priceMax = priceRange[1];
-
             let colors = [];
             $('.color-list input[type="checkbox"]:checked').each(function () {
                 colors.push($(this).val());
@@ -432,6 +432,7 @@
                 data: {
                     _token: '{{ csrf_token() }}',
                     colors: colors,
+                    id: id,
                     category_id: category_id,
                     price_min: priceMin,
                     price_max: priceMax

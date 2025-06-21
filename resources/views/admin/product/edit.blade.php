@@ -82,18 +82,6 @@
             </div>
 
             <div class="form-group">
-              <label>Chọn menu</label>
-              <select class="form-control select2_init @error ('menu_id') is-invalid @enderror" name="menu_id">
-                <option value="">Chọn menu </option>
-                @if(isset($menus) && !empty($menus))
-                @foreach($menus as $menu)
-                <option value="{{ $menu->id }}" {{ $product->menu_id == $menu->id ? 'selected' : '' }}>{{ $menu->name }}</option>
-                @endforeach
-                @endif
-              </select>
-            </div>
-
-            <div class="form-group">
               <label>Nhập tags</label>
               <select class="form-control tags_select_choose" name="tags[]" multiple="multiple">
                 @foreach ($product->tags as $tagItem )
