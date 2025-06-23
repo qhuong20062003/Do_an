@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class ProfileController extends Controller
                     ->join('colors', 'product_variants.color_id', '=', 'colors.id')
                     ->join('sizes', 'product_variants.size_id', '=', 'sizes.id')
                     ->select('products.name as product_name',
-                            'products.price as product_price',
+                            'order_detail.price as product_price',
                             'colors.name as color_name',
                             'sizes.name as size_name',
                             'order_detail.quantity',
@@ -42,8 +43,14 @@ class ProfileController extends Controller
         $order = Order::find($id)->delete();
 
         if($order) {
+            $order_details = OrderDetail::where('order_id', $id)->get();
+
+            foreach($order_details as $order_detail) {
+                ProductVariant::where('id', $order_detail->product_variant_id)
+                    ->increment('stock', $order_detail->quantity);
+            }
             OrderDetail::where('order_id', $id)->delete();
-            
+
             return redirect()->route('my.profile');
         }
     }

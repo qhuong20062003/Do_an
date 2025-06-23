@@ -50,7 +50,7 @@ class CheckoutController extends Controller
                         'order_id' => $order->id,
                         'product_variant_id' => $item['product_variant_id'],
                         'quantity' => $item['quantity'],
-                        'price' => $product->price * $item['quantity'],
+                        'price' => ($product->discount > 0) ? $product->discount : $product->price,
                     ]);
 
                     $product_variant = ProductVariant::findOrFail($item['product_variant_id']);
@@ -158,7 +158,7 @@ class CheckoutController extends Controller
                         'order_id' => $order->id,
                         'product_variant_id' => $item['product_variant_id'],
                         'quantity' => $item['quantity'],
-                        'price' => $product->price * $item['quantity'],
+                        'price' => ($product->discount > 0) ? $product->discount : $product->price,
                     ]);
 
                     $product_variant = ProductVariant::findOrFail($item['product_variant_id']);

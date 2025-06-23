@@ -87,7 +87,7 @@
                                     </td>
                                     <td>{{ number_format($product->product_price, 0, 0) }} VNĐ</td>
                                     <td>{{ $product->quantity }}</td>
-                                    <td>{{ number_format($product->price, 0, 0) }} VNĐ</td>
+                                    <td>{{ number_format($product->price * $product->quantity, 0, 0) }} VNĐ</td>
                                 </tr>
                                 @endforeach
                                 @endif

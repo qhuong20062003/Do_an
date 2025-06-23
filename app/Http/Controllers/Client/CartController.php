@@ -38,7 +38,7 @@ class CartController extends Controller
                     'user_id' => $user_id,
                     'product_variant_id' => $product_variant_id,
                     'quantity' => $quantity,
-                    'price' => $product->price
+                    'price' => $product->discount ? $product->discount : $product->price,
                 ]);
             }
         } else {
@@ -48,14 +48,15 @@ class CartController extends Controller
                         ->where('product_variants.id', $product_variant_id)
                         ->first();
 
+            $unit_price = ( $product->discount > 0) ? $product->discount : $product->price;
             if(isset($cart[$product_variant_id])) {
                 $cart[$product_variant_id]['quantity'] += $quantity;
-                $cart[$product_variant_id]['price'] = $product->price * $cart[$product_variant_id]['quantity'];
+                $cart[$product_variant_id]['price'] = $unit_price;
             } else {
                 $cart[$product_variant_id] = [
                     'product_variant_id' => $product_variant_id,
                     'quantity' => $quantity,
-                    'price' => $product->price * $quantity
+                    'price' => $unit_price
                 ];
             }
             session()->put('cart', $cart);
@@ -83,6 +84,7 @@ class CartController extends Controller
                 ->select('product_variants.id as product_variant_id',
                         'products.name',
                         'products.price',
+                        'products.discount',
                         'sizes.name as size_name',
                         'colors.name as color_name',
                         'products.feature_image_path',
@@ -94,7 +96,7 @@ class CartController extends Controller
                 $list_cart_items[] = [
                     'product_variant_id' => $item->product_variant_id,
                     'name' => $item->name,
-                    'price' => $item->price,
+                    'price' => ($item->discount > 0) ? $item->discount : $item->price,
                     'size_name' => $item->size_name,
                     'color_name' => $item->color_name,
                     'feature_image_path' => $item->feature_image_path,
@@ -113,6 +115,7 @@ class CartController extends Controller
                                 'product_variants.id as variant_id',
                                 'products.name',
                                 'products.price',
+                                'products.discount',
                                 'products.feature_image_path',
                                 'sizes.name as size_name', 
                                 'colors.name as color_name')
@@ -128,7 +131,7 @@ class CartController extends Controller
                 $list_cart_items[] = [
                     'product_variant_id' => $product->id,
                     'name' => $product->name,
-                    'price' => $product->price,
+                    'price' => ($item->discount > 0) ? $item->discount : $item->price,
                     'size_name' => $product->size_name,
                     'color_name' => $product->color_name,
                     'feature_image_path' => $product->feature_image_path,
@@ -168,7 +171,7 @@ class CartController extends Controller
                 ->select('products.*')
                 ->where('product_variants.id', $product_variant_id)
                 ->first();
-        $total_price = number_format($product->price * $quantity, 0, 0).' VNĐ';
+        $total_price = number_format((($product->discount > 0) ? $product->discount : $product->price) * $quantity, 0, 0).' VNĐ';
         $sub_total = 0;
 
         $carts = CartService::getCartItems();

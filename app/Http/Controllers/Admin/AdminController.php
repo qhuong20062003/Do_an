@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         $now = Carbon::now();
+        $thirty_day_ago = Carbon::now()->subDays(2);
         $revenues = [];
 
         for($i = 1; $i <= 12; $i++) {
@@ -40,13 +42,17 @@ class AdminController extends Controller
                     ->limit(5)
                     ->get();
         
-        $down_sellers = OrderDetail::join('orders', 'order_detail.order_id', '=', 'orders.id')
-                    ->join('product_variants', 'order_detail.product_variant_id', '=', 'product_variants.id')
-                    ->join('products', 'product_variants.product_id', '=', 'products.id')
-                    ->where('orders.status', 3)
-                    ->select('products.name', DB::raw('SUM(order_detail.quantity) as total_sold'))
+        $down_sellers = Product::leftJoin('product_variants', 'products.id', '=', 'product_variants.product_id')
+                    ->leftJoin('order_detail', 'product_variants.id', '=', 'order_detail.product_variant_id')
+                    ->leftJoin('orders', 'order_detail.order_id', '=', 'orders.id')
+                    ->where('products.created_at', '<', $thirty_day_ago)
+                    ->where(function($query) {
+                        $query->whereNull('orders.status')
+                            ->orWhere('orders.status', 3);
+                    })
+                    ->select('products.id', 'products.name', DB::raw('COALESCE(SUM(order_detail.quantity), 0) as total_sold'))
                     ->groupBy('products.id', 'products.name')
-                    ->orderBy('total_sold')
+                    ->orderBy('total_sold', 'asc')
                     ->limit(5)
                     ->get();
 

@@ -29,11 +29,10 @@ class AdminOrderController extends Controller
                     ->join('colors', 'product_variants.color_id', '=', 'colors.id')
                     ->join('sizes', 'product_variants.size_id', '=', 'sizes.id')
                     ->select('products.name as product_name',
-                            'products.price as product_price',
+                            'order_detail.price as product_price',
                             'colors.name as color_name',
                             'sizes.name as size_name',
-                            'order_detail.quantity',
-                            'order_detail.price')
+                            'order_detail.quantity',)
                     ->where('order_detail.order_id', $id)
                     ->get();
 

@@ -27,6 +27,7 @@ class CartService
                 ->select('product_variants.id as product_variant_id',
                         'products.name',
                         'products.price',
+                        'products.discount',
                         'sizes.name as size_name',
                         'colors.name as color_name',
                         'products.feature_image_path',
@@ -38,7 +39,7 @@ class CartService
                 $cart_items[] = [
                     'product_variant_id' => $item->product_variant_id,
                     'name' => $item->name,
-                    'price' => $item->price,
+                    'price' => ($item->discount > 0) ? $item->discount : $item->price,
                     'size_name' => $item->size_name,
                     'color_name' => $item->color_name,
                     'feature_image_path' => $item->feature_image_path,
@@ -57,6 +58,7 @@ class CartService
                                 'product_variants.id as variant_id',
                                 'products.name',
                                 'products.price',
+                                'products.discount',
                                 'products.feature_image_path',
                                 'sizes.name as size_name', 
                                 'colors.name as color_name')
@@ -72,7 +74,7 @@ class CartService
                 $cart_items[] = [
                     'product_variant_id' => $product->id,
                     'name' => $product->name,
-                    'price' => $product->price,
+                    'price' => ($item->discount > 0) ? $item->discount : $item->price,
                     'size_name' => $product->size_name,
                     'color_name' => $product->color_name,
                     'feature_image_path' => $product->feature_image_path,
