@@ -10,14 +10,29 @@ use App\Models\ProductVariant;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
 {
     public function index()
     {
         $result = CartService::getCartItems();
+        $response = Http::get('https://esgoo.net/api-tinhthanh/1/0.htm');
+        $cities = $response->json();
         
-        return view('client.checkout.index', compact('result'));
+        return view('client.checkout.index', compact('result', 'cities'));
+    }
+
+    public function get_district(string $id)
+    {
+        $response = Http::get('https://esgoo.net/api-tinhthanh/2/'.$id.'.htm');
+        return $response->json();
+    }
+
+    public function get_ward(string $id)
+    {
+        $response = Http::get('https://esgoo.net/api-tinhthanh/3/'.$id.'.htm');
+        return $response->json();
     }
 
     public function payment(Request $request)

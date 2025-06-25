@@ -163,3 +163,5 @@ Route::post('/gio-hang/xoa/thanh-tieu-de', [CartController::class, 'delete_cart_
 Route::get('/thanh-toan', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/hinh-thuc/thanh-toan', [CheckoutController::class,'payment'])->name('payment.handle');
 Route::get('/thanh-toan/thanh-cong', [CheckoutController::class, 'success'])->name('payment.success');
+Route::get('/quan-huyen/{id}', [CheckoutController::class, 'get_district']);
+Route::get('/phuong-xa/{id}',[CheckoutController::class, 'get_ward']);
