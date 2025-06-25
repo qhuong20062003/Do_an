@@ -88,8 +88,35 @@
                         </div>
                         <div class="col-12 mb-30">
                             <label>Địa chỉ người nhận <span>*</span></label>
-                            <input type="text" name="address">
+
+                            <input type="text" id="street" class="form-control mb-2" placeholder="Số nhà, tên đường...">
+
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <select id="city" class="form-control">
+                                        <option value="">Chọn Tỉnh/TP</option>
+                                        @foreach($cities['data'] as $city)
+                                        <option value="{{ $city['id'] }}">{{ $city['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <select id="district" class="form-control">
+                                        <option value="">Chọn Quận/Huyện</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-2">
+                                    <select id="ward" class="form-control">
+                                        <option value="">Chọn Phường/Xã</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="address" name="address">
                         </div>
+
                         <div class="col-12 mb-30">
                             <label>Email người nhận </label>
                             <input type="text" name="email">
@@ -122,7 +149,7 @@
                                 $total_price += $item['price'] * $item['quantity'];
                                 @endphp
                                 <tr>
-                                    <td> 
+                                    <td>
                                         {{ $item['name'] }} <strong> × {{ $item['quantity'] }}</strong>
                                         <br>
                                         <small>{{ $item['color_name'] }}, {{ $item['size_name'] }}</small>
@@ -143,7 +170,7 @@
                                 <tr class="order_total">
                                     <th>Tổng cộng</th>
                                     <td><strong>{{ number_format($total_price + 20000, 0, 0) }} VNĐ</strong></td>
-                                    <input type="hidden" name="total_price" value="{{ $total_price + 20000 }}"/>
+                                    <input type="hidden" name="total_price" value="{{ $total_price + 20000 }}" />
                                 </tr>
                             </tfoot>
                             @endif
@@ -170,4 +197,71 @@
     </form>
 </div>
 <!--Checkout page section end-->
+<script>
+    $(document).ready(function() {
+        $("#city").on('change', function(){
+            let city_id = $(this).val();
+            
+            $.ajax({
+                url: "{{ url('/quan-huyen') }}/" + city_id,
+                type: 'GET',
+                success: function(response) {
+                    let districts = response.data;
+                    
+                    let options = '<option value="">Chọn quận/huyện</option>';
+                    $.each(districts , function(i, item){
+                        options += `<option value="${item.id}">${item.name}</option>`
+                    });
+                    
+                    $('#district').html(options);
+                    $('#district').niceSelect('update');
+                    update_full_address();
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        });
+
+        $("#district").on('change', function(){
+            let district_id = $(this).val();
+            
+            $.ajax({
+                url: "{{ url('/phuong-xa') }}/" + district_id,
+                type: 'GET',
+                success: function(response) {
+                    let wards = response.data;
+                    
+                    let options = '<option value="">Chọn quận/huyện</option>';
+                    $.each(wards , function(i, item){
+                        options += `<option value="${item.id}">${item.name}</option>`
+                    });
+                    
+                    $('#ward').html(options);
+                    $('#ward').niceSelect('update');
+                    update_full_address();
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        });
+
+        $('#street, #city, #district, #ward').on('change keyup', function() {
+            update_full_address();
+        });
+
+        function update_full_address() {
+            let street = $('#street').val();
+            let city = $('#city option:selected').text();
+            let district = $('#district option:selected').text();
+            let ward = $('#ward option:selected').text();
+
+            if(city && district && ward && street) {
+                let full_address = `${street}, ${ward}, ${district}, ${city}`;
+                $('#address').val(full_address);
+            }
+        }
+    });
+</script>
 @endsection
