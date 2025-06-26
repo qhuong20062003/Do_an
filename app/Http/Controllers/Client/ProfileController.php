@@ -40,15 +40,13 @@ class ProfileController extends Controller
 
     public function cancelOrder(string $id)
     {
-        $order = Order::find($id)->delete();
-
-        if($order) {
-            $order_details = OrderDetail::where('order_id', $id)->get();
-
+        $order_details = OrderDetail::where('order_id', $id)->get();
+        if($order_details) {
             foreach($order_details as $order_detail) {
                 ProductVariant::where('id', $order_detail->product_variant_id)
                     ->increment('stock', $order_detail->quantity);
             }
+            Order::find($id)->delete();
             OrderDetail::where('order_id', $id)->delete();
 
             return redirect()->route('my.profile');
