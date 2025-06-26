@@ -90,23 +90,23 @@
            </a>
          </li>
 
-         <li class="nav-item">
+         <!-- <li class="nav-item">
            <a href="{{ route('settings.index') }} " class="nav-link">
              <i class="nav-icon fas fa-th"></i>
              <p>
                Setting
              </p>
            </a>
-         </li>
+         </li> -->
 
-         <!-- <li class="nav-item">
+         <li class="nav-item">
            <a href="{{ route('users.index') }} " class="nav-link">
              <i class="nav-icon fas fa-th"></i>
              <p>
                Danh sách user
              </p>
            </a>
-         </li> -->
+         </li>
 
          <li class="nav-item">
            <a href="{{ route('orders.index') }} " class="nav-link">

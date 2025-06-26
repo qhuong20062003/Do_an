@@ -52,7 +52,7 @@
 
                             <!-- Phân trang -->
                             <div class="d-flex justify-content-center mt-3">
-                                {{ $sizes->links() }}
+                                {{ $sizes->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>

@@ -57,7 +57,7 @@
                             </table>
 
                             <div class="d-flex justify-content-center mt-3">
-                                {{ $colors->links() }}
+                                {{ $colors->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>

@@ -67,7 +67,7 @@
               </table>
 
               <div class="d-flex justify-content-center mt-3">
-                {{ $sliders->links() }}
+                {{ $sliders->links('pagination::bootstrap-4') }}
               </div>
             </div>
           </div>
