@@ -31,7 +31,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Mã đơn hàng</th>
-                                        <th>Người đặt</th>
+                                        <!-- <th>Người đặt</th> -->
                                         <th>Ngày đặt</th>
                                         <th>Tổng tiền</th>
                                         <th>Trạng thái</th>
@@ -42,7 +42,7 @@
                                     <tr>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->code }}</td>
-                                        <td>{{ $order->customer_name }}</td>
+                                        <!-- <td>{{ $order->customer_name }}</td> -->
                                         <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                                         <td>{{ number_format($order->total_price, 0, '.', ',') }} VNĐ</td>
                                         <td>
@@ -66,7 +66,7 @@
                             </table>
 
                             <div class="d-flex justify-content-center mt-3">
-                                {{ $orders->links() }}
+                                {{ $orders->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>
