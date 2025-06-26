@@ -14,7 +14,7 @@
          <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
        </div>
        <div class="info">
-         <a href="#" class="d-block">Alexander Pierce</a>
+         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
        </div>
      </div>
 
@@ -50,15 +50,6 @@
              <p>
                Danh mục sản phẩm
                <span class="right badge badge-danger">New</span>
-             </p>
-           </a>
-         </li>
-
-         <li class="nav-item">
-           <a href="{{ route('menus.index') }}" class="nav-link">
-             <i class="nav-icon fas fa-th"></i>
-             <p>
-               Menus
              </p>
            </a>
          </li>
@@ -108,14 +99,14 @@
            </a>
          </li>
 
-         <li class="nav-item">
+         <!-- <li class="nav-item">
            <a href="{{ route('users.index') }} " class="nav-link">
              <i class="nav-icon fas fa-th"></i>
              <p>
                Danh sách user
              </p>
            </a>
-         </li>
+         </li> -->
 
          <li class="nav-item">
            <a href="{{ route('orders.index') }} " class="nav-link">

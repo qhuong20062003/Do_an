@@ -1,36 +1,38 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-<title>Trang chu</title>
+<title>Thêm màu sắc</title>
 @endsection
 
 @section('content')
 <div class="content-wrapper">
-    @include('admin.partials.content-header',['name' => 'Colors','key'=> 'Add'])
+    @include('admin.partials.content-header', ['name' => 'Màu sắc', 'key' => 'Thêm'])
 
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
+                    <h5 class="mb-4">Thêm màu sắc mới</h5>
+
                     <form action="{{ route('colors.store') }}" method="post">
                         @csrf
-                        <div class="form-group">
-                            <label>Tên màu</label>
-                            <input type="text"
-                                class="form-control"
-                                name="name"
-                                placeholder="Nhập tên màu">
-                        </div>
-                        <div class="form-group">
-                            <label>Mã màu</label>
-                            <input type="text"
-                                class="form-control"
-                                name="code"
-                                placeholder="Nhập mã màu">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Tên màu</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên màu">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="code" class="form-label">Mã màu</label>
+                                <input type="text" class="form-control" id="code" name="code" placeholder="VD: #ff5733">
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Thêm màu</button>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>

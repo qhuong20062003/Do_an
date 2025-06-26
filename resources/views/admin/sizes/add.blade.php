@@ -1,27 +1,31 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-<title>Trang chu</title>
+<title>Thêm kích thước</title>
 @endsection
 
 @section('content')
 <div class="content-wrapper">
-    @include('admin.partials.content-header',['name' => 'Sizes','key'=> 'Add'])
+    @include('admin.partials.content-header', ['name' => 'Thêm', 'key' => 'kích thước'])
 
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <form action="{{ route('sizes.store') }}" method="post">
                         @csrf
-                        <div class="form-group">
-                            <label>Tên size</label>
-                            <input type="text"
-                                class="form-control"
-                                name="name"
-                                placeholder="Nhập tên size">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Tên size</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên size">
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Thêm size</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
