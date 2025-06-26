@@ -16,7 +16,7 @@
 @section('content')
 
 <div class="content-wrapper">
-    @include('admin.partials.content-header',['name' => 'Order','key'=> 'Edit'])
+    @include('admin.partials.content-header',['name' => 'Chỉnh sửa','key'=> 'đơn hàng'])
 
     <!-- Nội dung chính -->
     <section class="content">
