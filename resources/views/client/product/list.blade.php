@@ -212,11 +212,11 @@
                         </li>
                     </ul>
                 </div>
-                <div class="page_amount">
+                <!-- <div class="page_amount">
                     <p>Showing 1–9 of 21 results</p>
-                </div>
+                </div> -->
 
-                <div class="select_option">
+                <!-- <div class="select_option">
                     <form action="#">
                         <label>Sort By</label>
                         <select name="orderby" id="short">
@@ -231,7 +231,7 @@
                             <option value="1">In stock</option>
                         </select>
                     </form>
-                </div>
+                </div> -->
             </div>
             <!--shop toolbar end-->
 
@@ -325,7 +325,7 @@
             <!--shop tab product end-->
 
             <!--pagination style start-->
-            <div class="pagination_style">
+            <!-- <div class="pagination_style">
                 <div class="item_page">
                     <form action="#">
                         <label for="page_select">show</label>
@@ -346,7 +346,7 @@
                         <li>»</li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
             <!--pagination style end-->
         </div>
     </div>
