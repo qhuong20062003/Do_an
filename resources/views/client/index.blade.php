@@ -3,8 +3,7 @@
 @section('content')
 <div class=" pos_home_section">
     <div class="row pos_home">
-        <div class="col-lg-3 col-md-8 col-12">
-            <!--sidebar banner-->
+        <!-- <div class="col-lg-3 col-md-8 col-12">
             <div class="sidebar_widget banner mb-35">
                 <div class="banner_img mb-35">
                     <a href="#"><img src="{{ asset('client\assets\img\banner\banner5.jpg') }}" alt=""></a>
@@ -13,9 +12,7 @@
                     <a href="#"><img src="{{ asset('client\assets\img\banner\banner6.jpg') }}" alt=""></a>
                 </div>
             </div>
-            <!--sidebar banner end-->
 
-            <!--categorie menu start-->
             <div class="sidebar_widget catrgorie mb-35">
                 <h3>Danh mục sản phẩm</h3>
                 @if(isset($categories) && !empty($categories))
@@ -34,47 +31,7 @@
                 </ul>
                 @endif
             </div>
-            <!--categorie menu end-->
 
-            <!--wishlist block start-->
-            <!-- <div class="sidebar_widget wishlist mb-35">
-                <div class="block_title">
-                    <h3><a href="#">Wishlist</a></h3>
-                </div>
-                <div class="cart_item">
-                    <div class="cart_img">
-                        <a href="#"><img src="{{ asset('client\assets\img\cart\cart.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="cart_info">
-                        <a href="#">lorem ipsum dolor</a>
-                        <span class="cart_price">$115.00</span>
-                        <span class="quantity">Qty: 1</span>
-                    </div>
-                    <div class="cart_remove">
-                        <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
-                    </div>
-                </div>
-                <div class="cart_item">
-                    <div class="cart_img">
-                        <a href="#"><img src="{{ asset('client\assets\img\cart\cart2.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="cart_info">
-                        <a href="#">Quisque ornare dui</a>
-                        <span class="cart_price">$105.00</span>
-                        <span class="quantity">Qty: 1</span>
-                    </div>
-                    <div class="cart_remove">
-                        <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
-                    </div>
-                </div>
-                <div class="block_content">
-                    <p>2 products</p>
-                    <a href="#">» My wishlists</a>
-                </div>
-            </div> -->
-            <!--wishlist block end-->
-
-            <!--popular tags area-->
             <div class="sidebar_widget tags mb-35">
                 <div class="block_title">
                     <h3>popular tags</h3>
@@ -91,9 +48,7 @@
                     <a href="#">canon</a>
                 </div>
             </div>
-            <!--popular tags end-->
 
-            <!--newsletter block start-->
             <div class="sidebar_widget newsletter mb-35">
                 <div class="block_title">
                     <h3>newsletter</h3>
@@ -104,20 +59,15 @@
                     <button type="submit">Subscribe</button>
                 </form>
             </div>
-            <!--newsletter block end-->
 
-            <!--sidebar banner-->
             <div class="sidebar_widget bottom ">
                 <div class="banner_img">
                     <a href="#"><img src="{{ asset('client\assets\img\banner\banner9.jpg') }}" alt=""></a>
                 </div>
             </div>
-            <!--sidebar banner end-->
 
-
-
-        </div>
-        <div class="col-lg-9 col-md-12">
+        </div> -->
+        <div class="col-12">
             <!--banner slider start-->
             <div class="banner_slider slider_1">
                 <div class="slider_active owl-carousel">

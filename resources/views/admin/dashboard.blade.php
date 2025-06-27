@@ -11,71 +11,72 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- Biểu đồ doanh thu 12 tháng (full width) -->
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Doanh thu 12 tháng</h3>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="revenueChart" height="150"></canvas>
-                        </div>
-                    </div>
+            <!-- Biểu đồ doanh thu 12 tháng (thu nhỏ lại) -->
+            <div class="col-md-8 mx-auto">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Doanh thu 12 tháng</h3>
                 </div>
+                <div class="card-body">
+                    <canvas id="revenueChart" height="150"></canvas>
+                </div>
+                </div>
+            </div>
             </div>
 
             <!-- Top sản phẩm -->
             <div class="row">
-                <!-- Top bán chạy -->
-                <div class="col-md-6">
-                    <div class="card card-success">
-                        <div class="card-header">
-                            <h3 class="card-title">Top 5 bán chạy</h3>
-                        </div>
-                        <div class="card-body row">
-                            <div class="col-md-6">
-                                <ul class="list-group">
-                                    @foreach($top_sellers as $top_seller)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        {{ $top_seller->name }}
-                                        <span class="badge badge-success badge-pill">{{ $top_seller->total_sold }}</span>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <canvas id="topSellerChart" height="200"></canvas>
-                            </div>
-                        </div>
+            <!-- Top bán chạy -->
+            <div class="col-md-6">
+                <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Top 5 bán chạy</h3>
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-6">
+                    <ul class="list-group">
+                        @foreach($top_sellers as $top_seller)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ $top_seller->name }}
+                        <span class="badge badge-success badge-pill">{{ $top_seller->total_sold }}</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                    </div>
+                    <div class="col-md-6">
+                    <canvas id="topSellerChart" height="200"></canvas>
                     </div>
                 </div>
+                </div>
+            </div>
 
-                <!-- Top bán chậm -->
-                <div class="col-md-6">
-                    <div class="card card-danger">
-                        <div class="card-header">
-                            <h3 class="card-title">Top 5 bán chậm</h3>
-                        </div>
-                        <div class="card-body row">
-                            <div class="col-md-6">
-                                <ul class="list-group">
-                                    @foreach($down_sellers as $down_seller)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        {{ $down_seller->name }}
-                                        <span class="badge badge-danger badge-pill">{{ $down_seller->total_sold }}</span>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <canvas id="downSellerChart" height="200"></canvas>
-                            </div>
-                        </div>
+            <!-- Top bán chậm -->
+            <div class="col-md-6">
+                <div class="card card-danger">
+                <div class="card-header">
+                    <h3 class="card-title">Top 5 bán chậm</h3>
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-6">
+                    <ul class="list-group">
+                        @foreach($down_sellers as $down_seller)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ $down_seller->name }}
+                        <span class="badge badge-danger badge-pill">{{ $down_seller->total_sold }}</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                    </div>
+                    <div class="col-md-6">
+                    <canvas id="downSellerChart" height="200"></canvas>
                     </div>
                 </div>
+                </div>
+            </div>
             </div>
         </div>
     </section>
+
 </div>
 @endsection
 

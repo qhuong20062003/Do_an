@@ -49,10 +49,10 @@
                                 <div class="form-group">
                                     <label>Chọn trạng thái:</label>
                                     <select class="form-control" name="status">
-                                        <option value="0" selected>Đang xử lý</option>
-                                        <option value="1">Đã xác nhận</option>
-                                        <option value="2">Đang giao hàng</option>
-                                        <option value="3">Giao hàng thành công</option>
+                                        <option value="0" {{ $order->status == 0 ? 'selected' : '' }}>Đang xử lý</option>
+                                        <option value="1" {{ $order->status == 1 ? 'selected' : '' }}>Đã xác nhận</option>
+                                        <option value="2" {{ $order->status == 2 ? 'selected' : '' }}>Đang giao hàng</option>
+                                        <option value="3" {{ $order->status == 3 ? 'selected' : '' }}>Giao hàng thành công</option>
                                     </select>
                                 </div>
                             </div>
