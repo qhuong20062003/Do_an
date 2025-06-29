@@ -114,7 +114,6 @@
                                 </div>
                                 <div class="product_info">
                                     <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
                                         <li><a href="{{ route('detail.product', ['id' => $new_product->id]) }}" title="Quick view">Chi tiết</a></li>
                                     </ul>
                                 </div>

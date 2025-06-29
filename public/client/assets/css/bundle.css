@@ -51,7 +51,7 @@
 
 
 body {
-    font-family: 'Myriad Pro';
+    font-family: 'Noto Serif Display', serif;;
     line-height: 24px;
     font-weight: 400;
     font-style: normal;
@@ -81,7 +81,7 @@ a:focus,
     outline: none;
 }
 a:hover {
-  color: #333;
+  color: #fc90ab;
   text-decoration: none;
 }
 a:focus {
