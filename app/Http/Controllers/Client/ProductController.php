@@ -129,4 +129,38 @@ class ProductController extends Controller
 
         return view('client.product.filter', compact('products'));
     }
+
+    public function searchAdvance(Request $request)
+    {
+        $query = Product::query();
+
+        if($request->text) {
+            $query->where('name', 'like', "%$request->text%");
+        }
+
+        if($request->has('colors')) {
+            $color_id = is_array($request->colors) ? $request->colors : [$request->colors];
+
+            $product_id_by_color = ProductVariant::whereIn('color_id', $color_id)
+                                ->pluck('product_id')
+                                ->unique()
+                                ->toArray();
+
+            $query->whereIn('id', $product_id_by_color);
+        }
+
+        if($request->filled('price_min') && $request->filled('price_max')) {
+            $min = (float) $request->price_min;
+            $max = (float) $request->price_max;
+
+            $query->where(function($q) use ($min, $max) {
+                $q->whereBetween('price', [$min, $max])
+                    ->orWhereBetween('discount', [$min, $max]);
+            }); 
+        }
+
+        $products = $query->get();
+
+        return view('client.product.filter', compact('products'));
+    }
 }

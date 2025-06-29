@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Colors;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -24,9 +25,9 @@ class HomeController extends Controller
     {
         $text = $request->text;
 
-        $categories = Category::where('parent_id', 0)->get();
+        $colors = Colors::all();
         $products = Product::where('name', 'like', "%$text%")->get();
 
-        return view('client.product.list', compact('products', 'categories'));
+        return view('client.product.search', compact('colors', 'products', 'text'));
     }
 }

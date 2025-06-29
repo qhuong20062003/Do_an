@@ -42,7 +42,7 @@
                                             <a href="{{ route('sizes.edit', ['id' => $size->id]) }}"
                                                 class="btn btn-sm btn-outline-primary me-1">Sửa</a>
                                             <a href="{{ route('sizes.delete', ['id' => $size->id]) }}"
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa size này không?')"
+                                                onclick="return confirm('Nếu bạn xóa size này, các biến thể của nó sẽ mất, bạn có chắc chắn muốn xóa size này không?')"
                                                 class="btn btn-sm btn-outline-danger">Xóa</a>
                                         </td>
                                     </tr>

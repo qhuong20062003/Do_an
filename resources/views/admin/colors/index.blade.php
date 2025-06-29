@@ -48,7 +48,7 @@
                                             <a href="{{ route('colors.edit', ['id' => $color->id]) }}"
                                                 class="btn btn-sm btn-outline-primary me-1">Sửa</a>
                                             <a href="{{ route('colors.delete', ['id' => $color->id]) }}"
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa màu sắc này không?')"
+                                                onclick="return confirm('Nếu bạn xóa màu sắc này, các biến thể của nó sẽ mất, bạn có chắc chắn muốn xóa màu sắc này không?')"
                                                 class="btn btn-sm btn-outline-danger">Xóa</a>
                                         </td>
                                     </tr>
