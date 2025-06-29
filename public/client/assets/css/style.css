@@ -491,7 +491,7 @@
 
 /*banner slider css here*/
 .single_slider {
-	height: 350px;
+	height: 450px;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-position: center center;
@@ -608,7 +608,7 @@
 
 /* 2.6 wishlist block css here */
 .block_title h3 {
-	color: #f5a2c2;
+	color: #fc90ab;
 	text-transform: uppercase;
 	font-size: 18px;
 	font-weight: 700;
@@ -619,6 +619,7 @@
 	z-index: 9;
 	position: relative;
 	padding-right: 20px;
+	font-family: 'Cormorant Garamond', serif;
 }
 .sidebar_widget.tags.mb-35 {
 	margin-bottom: 31px;
@@ -1363,7 +1364,7 @@
 	height: 15px;
 }
 .ui-slider-horizontal .ui-slider-range {
-	background: #08C7B2;
+	background: #fc90ab;
 }
 .ui-slider-horizontal {
 	height: 10px;
@@ -1919,14 +1920,14 @@
     transition: .3s;
 }
 .product_info_button ul li a.active::before,.product_info_button ul li a:hover::before{
-    border-left: 20px solid #009483;
+    border-left: 20px solid #f2d4db;
 }
 .product_info_button ul li a.active,.product_info_button ul li a:hover {
-	background: #009483;
+	background: #f2d4db;
 	color: #fff;
 }
 .product_info_button {
-	border-bottom: 3px solid #009483;
+	border-bottom: 3px solid #f2d4db;
 }
 .product_d_inner .tab-content {
 	padding: 20px 30px 25px;

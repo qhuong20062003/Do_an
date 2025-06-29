@@ -32,7 +32,7 @@
                         @foreach($categories as $category)
                         <li>
                             <input type="radio" name="category" value="{{ $category['id'] }}">
-                            <label for="acces">{{ $category['name'] }}<span>({{ $category['count'] }})</span></label>
+                            <label for="acces">{{ $category['name'] }}</label>
                         </li>
                         @endforeach
                     </ul>
@@ -194,9 +194,9 @@
         </div>
         <div class="col-lg-9 col-md-12">
             <!--banner slider start-->
-            <div class="banner_slider mb-35">
+            <!-- <div class="banner_slider mb-35">
                 <img src="{{ asset('client\assets\img\banner\bannner10.jpg') }}" alt="">
-            </div>
+            </div> -->
             <!--banner slider start-->
 
             <!--shop toolbar start-->
@@ -259,7 +259,7 @@
                                     </div>
                                     <div class="product_info">
                                         <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
+                                            <!-- <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li> -->
                                             <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">Chi tiết</a></li>
                                         </ul>
                                     </div>
@@ -309,7 +309,7 @@
                                         <div class="add_links">
                                             <ul>
                                                 <li><a class="detail_product" data-id="{{ $product->id }}" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <!-- <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li> -->
                                                 <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                             </ul>
                                         </div>
