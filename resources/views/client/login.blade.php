@@ -39,12 +39,12 @@
                 @endif
                 <form action="{{ route('post.login') }}" method="POST">
                     <p>
-                        <label>Email <span>*</span></label>
-                        <input type="text" name="email">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
                     </p>
                     <p>
                         <label>Mật khẩu <span>*</span></label>
-                        <input type="password" name="password">
+                        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
                     </p>
                     <div class="login_submit">
                         <button type="submit">Đăng nhập</button>

@@ -18,7 +18,7 @@
             <a href="#">{{ $item['name'] }}</a>
             <span class="cart_price">{{ number_format($item['price'], 0, 0) }} VNĐ</span>
             <span>{{ $item['color_name'] }}, {{ $item['size_name'] }}</span>
-            <span class="quantity">SL: {{ $item['quantity'] }}</span>
+            <span class="quantity">Số lượng: {{ $item['quantity'] }}</span>
         </div>
         <div class="cart_remove">
             <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>

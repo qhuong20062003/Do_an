@@ -147,12 +147,14 @@
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">{{ number_format($discount_product->price, 0, 0) }} VNĐ</span>
+                                    <span class="product_price">{{ number_format($discount_product->discount, 0, 0) }} VNĐ</span>
+                                        <span class="old-price">{{ number_format($discount_product->price, 0, 0) }} VNĐ</span>
+
                                     <h3 class="product_title"><a href="{{ route('detail.product', ['id' => $discount_product->id]) }}">{{ $discount_product->name }}</a></h3>
                                 </div>
                                 <div class="product_info">
                                     <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
+                                        <!-- <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li> -->
                                         <li><a href="{{ route('detail.product', ['id' => $discount_product->id]) }}" title="Quick view">Chi tiết</a></li>
                                     </ul>
                                 </div>

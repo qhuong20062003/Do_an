@@ -37,16 +37,18 @@
                 <!--pos home section-->
                 @yield('content')
                 <!--pos home section end-->
+                
+                <!--footer area start-->
+                @include('client.layouts.footer')
+                <!--footer area end-->
+                
             </div>
             <!--pos page inner end-->
         </div>
     </div>
     <!--pos page end-->
 
-    <!--footer area start-->
-    @include('client.layouts.footer')
-    <!--footer area end-->
-
+    
     <!-- all js here -->
     <script src="{{ asset('client\assets\js\vendor\jquery-1.12.0.min.js') }}"></script>
     <script src="{{ asset('client\assets\js\popper.js') }}"></script>
