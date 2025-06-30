@@ -2,7 +2,7 @@
 
 @section('content')
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
+<!-- <div class="breadcrumbs_area">
     <div class="row">
         <div class="col-12">
             <div class="breadcrumb_content">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--breadcrumbs area end-->
 
 <div class="customer_login">
@@ -32,16 +32,16 @@
 
                 <form action="{{ route('post.register') }}" method="POST">
                     <p>
-                        <label>Tên khách hàng <span>*</span></label>
-                        <input type="text" name="name">
+                        <label>Tên khách hàng <span class="required">*</span></label>
+                        <input type="text" name="name" placeholder="Nhập họ tên" required>
                     </p>
                     <p>
-                        <label>Email <span>*</span></label>
-                        <input type="text" name="email">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="Nhập email" required>
                     </p>
                     <p>
-                        <label>Mật khẩu <span>*</span></label>
-                        <input type="password" name="password">
+                        <label>Mật khẩu <span class="required">*</span></label>
+                        <input type="password" name="password" placeholder="Nhập mật khẩu" required>
                     </p>
                     <div class="login_submit">
                         <button type="submit">Đăng ký</button>
