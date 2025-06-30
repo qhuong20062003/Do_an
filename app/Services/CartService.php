@@ -74,7 +74,7 @@ class CartService
                 $cart_items[] = [
                     'product_variant_id' => $product->id,
                     'name' => $product->name,
-                    'price' => ($item->discount > 0) ? $item->discount : $item->price,
+                    'price' => ($product->discount > 0) ? $product->discount : $product->price,
                     'size_name' => $product->size_name,
                     'color_name' => $product->color_name,
                     'feature_image_path' => $product->feature_image_path,
