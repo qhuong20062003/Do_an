@@ -332,6 +332,8 @@
 	display: flex;
 }
 .main_menu_inner {
+	display: flex;
+    justify-content: center;
 	padding: 0 20px;
 }
 .main_menu ul li{
@@ -475,9 +477,10 @@
 	padding-right: 0;
 }
 .pos_home_section {
-	padding-top: 25px;
+	padding-top: 15px;
 	padding-left: 20px;
 	padding-right: 20px;
+	background-color: #fcfafb;
 }
 
 .banner_img {
@@ -497,7 +500,7 @@
 
 /*banner slider css here*/
 .single_slider {
-	height: 450px;
+	height: 550px;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-position: center center;
@@ -840,7 +843,7 @@
     font-weight: normal;
 }
 .product_content h3 a:hover{
-    color: #e84c3d;
+    color: #04192d;
 }
 .product_info ul li {
 	display: inline-block;
@@ -855,6 +858,7 @@
 	display: block;
 	font-size: 13px;
 	margin: 0 3px;
+	border-radius: 20px;
 }
 .product_info {
 	text-align: center;
@@ -1284,16 +1288,19 @@
 	-webkit-transform: translatey(-50%);
 	transform: translatey(-50%);
 }
+.layere_categorie ul li input[type="radio"] {
+	accent-color: #d86782;
+}
 .categorie__titile h2,.sidebar_widget.color h2,.sidebar_widget.price h2 {
 	font-size: 18px;
-	color: #333333;
+	color: #fc90ab;
 	text-transform: uppercase;
 	font-weight: 700;
 	line-height: 18px;
 }
 .categorie__titile h4 {
 	font-size: 18px;
-	color: #333333;
+	color: #fc90ab;
 	text-transform: uppercase;
 	font-weight: 700;
 	line-height: 18px;

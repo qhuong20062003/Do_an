@@ -140,8 +140,8 @@
                                         </div>
                                     </div>
                                 </li> -->
-                                <li><a href="shop.html">Trang chủ</a></li>
-                                <li><a href="shop.html">Về chúng tôi</a></li>
+                                <li><a href="{{ route('index') }}">Trang chủ</a></li>
+                                <!-- <li><a href="shop.html">Về chúng tôi</a></li> -->
                                 @foreach($catagories->where('parent_id', 0) as $menu)
                                 <li><a href="{{ route('product.category', ['id' => $menu->id, 'slug' => $menu->slug]) }}">{{ $menu->name }}</a>
                                     @if($catagories->where('parent_id', $menu->id)->count())
@@ -291,7 +291,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="mobile-menu d-lg-none">
+                    <!-- <div class="mobile-menu d-lg-none">
                         <nav>
                             <ul>
                                 <li><a href="index.html">Home</a>
@@ -452,7 +452,7 @@
 
                             </ul>
                         </nav>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
