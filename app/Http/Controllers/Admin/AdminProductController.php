@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Storage;
-use App\Models\Tag;
-use App\Models\ProductTag;
 use App\Models\ProductVariant;
 use App\Models\Sizes;
 use Exception;
@@ -38,13 +36,11 @@ class AdminProductController extends Controller
     private $sizes;
     private $productVariant;
 
-    public function __construct(Category $category, Product $product, ProductImage $productImage, Tag $tag, ProductTag $productTag, Colors $colors, Sizes $sizes, ProductVariant $productVariant)
+    public function __construct(Category $category, Product $product, ProductImage $productImage, Colors $colors, Sizes $sizes, ProductVariant $productVariant)
     {
         $this->category = $category;
         $this->product = $product;
         $this->productImage = $productImage;
-        $this->tag = $tag;
-        $this->productTag = $productTag;
         $this->colors = $colors;
         $this->sizes = $sizes;
         $this->productVariant = $productVariant;
@@ -110,18 +106,7 @@ class AdminProductController extends Controller
                     ]);
                 }
             }
-            // Insert tags for product
-            if (!empty($request->tags)) {
-                foreach ($request->tags as $tagItem) {
-                    // insert to tags
-                    $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
-                    $tagIds[] = $tagInstance->id;
-                }
-            }
 
-            if (!empty($tagIds)) {
-                $product->tags()->attach($tagIds);
-            }
             DB::commit();
             return redirect()->route('product.index');
         } catch (Exception $exception) {
@@ -184,18 +169,6 @@ class AdminProductController extends Controller
                     ]);
                 }
             }
-
-            // Insert tags for product
-            if (!empty($request->tags)) {
-                foreach ($request->tags as $tagItem) {
-                    // insert to tags
-                    $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
-                    $tagIds[] = $tagInstance->id;
-                }
-            }
-
-
-            $product->tags()->sync($tagIds);
 
             DB::commit();
             return redirect()->route('product.index');

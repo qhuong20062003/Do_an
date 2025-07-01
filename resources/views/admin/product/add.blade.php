@@ -62,11 +62,6 @@
                   <small class="text-danger">{{ $message }}</small>
                   @enderror
                 </div>
-
-                <div class="form-group">
-                  <label>Tags</label>
-                  <select class="form-control tags_select_choose" name="tags[]" multiple="multiple"></select>
-                </div>
               </div>
 
               <div class="col-md-6">
