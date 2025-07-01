@@ -64,15 +64,6 @@
                     {!! $htmlOption !!}
                   </select>
                 </div>
-
-                <div class="form-group mb-3">
-                  <label>Tags</label>
-                  <select class="form-control tags_select_choose" name="tags[]" multiple="multiple">
-                    @foreach ($product->tags as $tagItem)
-                    <option value="{{ $tagItem->name }}" selected>{{ $tagItem->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
               </div>
 
               <div class="col-md-6">
