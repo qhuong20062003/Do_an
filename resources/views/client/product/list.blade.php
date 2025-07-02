@@ -259,8 +259,8 @@
                                     </div>
                                     <div class="product_info">
                                         <ul>
-                                            <!-- <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li> -->
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">Chi tiết</a></li>
+                                            <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
+                                            <li><a href="{{ route('detail.product', ['id' => $product->id]) }}">Chi tiết</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -284,7 +284,7 @@
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-6">
                                     <div class="list_product_content">
-                                        <div class="product_ratting">
+                                        <!-- <div class="product_ratting">
                                             <ul>
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -292,25 +292,25 @@
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                         <div class="list_title">
                                             <h3><a href="{{ route('detail.product', ['id' => $product->id]) }}">{{ $product->name }}</a></h3>
                                         </div>
-                                        <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                        <!-- <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p> -->
 
                                         <!-- <p class="compare">
                                             <input id="select" type="checkbox">
                                             <label for="select">Select to compare</label>
                                         </p> -->
                                         <div class="content_price">
-                                            <span>{{ number_format($product->price, 0, 0) }} VNĐ</span>
-                                            <span class="old-price">$130.00</span>
+                                            <span>{{ number_format($product->discount, 0, 0) }} VNĐ</span>
+                                            <span class="old-price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
                                         </div>
                                         <div class="add_links">
                                             <ul>
                                                 <li><a class="detail_product" data-id="{{ $product->id }}" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
                                                 <!-- <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li> -->
-                                                <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                <li><a href="{{ route('detail.product', ['id' => $product->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>

@@ -504,7 +504,7 @@
             }
         });
 
-        $('.remove_cart_item').click(function() {
+        $(document).on('click', '.remove_cart_item', function() {
             let productVariantId = $(this).data('id');
 
             $.ajax({
