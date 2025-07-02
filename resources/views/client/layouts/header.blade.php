@@ -76,7 +76,7 @@
                                     <a href="#">{{ $item['name'] }}</a>
                                     <span class="cart_price">{{ number_format($item['price'], 0, 0) }} VNĐ</span>
                                     <span>{{ $item['color_name'] }}, {{ $item['size_name'] }}</span>
-                                    <span class="quantity">SL: {{ $item['quantity'] }}</span>
+                                    <span class="quantity">Số lượng: {{ $item['quantity'] }}</span>
                                 </div>
                                 <div class="cart_remove">
                                     <a class="remove_cart_item" data-id="{{ $item['product_variant_id'] }}"><i class="fa fa-times-circle"></i></a>
@@ -103,7 +103,7 @@
 
                     <div class="account_dropdown">
                         @if(Auth::check())
-                        <a href="#" id="accountToggle">{{ Auth::user()->name }} <i class="fa fa-angle-down"></i></a>
+                        <a href="#" id="accountToggle">{{ Auth::user()->name }} <i class="fa fa-user fa-2x" style="color: #fff; margin-top: 8px;"></i></a>
 
                         <div class="account_menu" style="display: none;">
                             <ul>
@@ -140,8 +140,8 @@
                                         </div>
                                     </div>
                                 </li> -->
-                                <li><a href="shop.html">Trang chủ</a></li>
-                                <li><a href="shop.html">Về chúng tôi</a></li>
+                                <li><a href="{{ route('index') }}">Trang chủ</a></li>
+                                <!-- <li><a href="shop.html">Về chúng tôi</a></li> -->
                                 @foreach($catagories->where('parent_id', 0) as $menu)
                                 <li><a href="{{ route('product.category', ['id' => $menu->id, 'slug' => $menu->slug]) }}">{{ $menu->name }}</a>
                                     @if($catagories->where('parent_id', $menu->id)->count())
@@ -291,7 +291,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="mobile-menu d-lg-none">
+                    <!-- <div class="mobile-menu d-lg-none">
                         <nav>
                             <ul>
                                 <li><a href="index.html">Home</a>
@@ -452,7 +452,7 @@
 
                             </ul>
                         </nav>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

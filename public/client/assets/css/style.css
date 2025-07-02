@@ -146,6 +146,8 @@
 }
 .header_middel {
 	padding: 15px 20px;
+	background-color: #F2D4DB; /* màu nền */
+
 }
 .search_bar form {
   position: relative;
@@ -153,8 +155,9 @@
 .search_bar form input {
 	width: 275px;
 	height: 38px;
-	background: none;
+	background: #fff;
 	border: 1px solid #ddd;
+	border-radius: 20px;
 	padding: 0 59px 0 15px;
 }
 .search_bar form button {
@@ -163,6 +166,7 @@
 	background: none;
 	border: 0;
 	border-left: 1px solid #ddd;
+	border-radius: 0 20px 20px 0;
 	font-size: 17px;
 	color: #333333;
 	width: 45px;
@@ -173,7 +177,7 @@
 	top: 0;
 }
 .search_bar form button:hover{
-    background: #f2d4db;
+    background: #e4a5a9;
     color: #fff;
 }
 .header_links ul li:last-child a {
@@ -181,6 +185,8 @@
 }
 .shopping_cart {
 	border: 1px solid #ddd;
+	border-radius: 20px;
+	background: #fff;
 	line-height: 38px;
 	height: 38px;
 	margin-left: 25px;
@@ -248,7 +254,7 @@
 	display: block;
 	line-height: 20px;
 	padding: 6px 0 1px;
-	color: #f2d4db;
+	color: #f5a2c2;
 }
 .cart_info span.quantity {
 	font-size: 14px;
@@ -298,7 +304,7 @@
 
 /* 2.3 header bottom css here*/
 .header_bottom {
-	background: #f2d4db;
+	background: #F7F7F7;
 	height: 50px;
 	position: relative;
 }
@@ -326,6 +332,8 @@
 	display: flex;
 }
 .main_menu_inner {
+	display: flex;
+    justify-content: center;
 	padding: 0 20px;
 }
 .main_menu ul li{
@@ -340,7 +348,7 @@
 	display: block;
 	line-height: 50px;
 	font-size: 18px;
-	color: #fff;
+	color: #000;
 	font-weight: 400;
 }
 .main_menu nav > ul > li.active > a,.main_menu nav > ul > li:hover > a{
@@ -469,9 +477,10 @@
 	padding-right: 0;
 }
 .pos_home_section {
-	padding-top: 35px;
+	padding-top: 15px;
 	padding-left: 20px;
 	padding-right: 20px;
+	background-color: #fcfafb;
 }
 
 .banner_img {
@@ -491,7 +500,7 @@
 
 /*banner slider css here*/
 .single_slider {
-	height: 350px;
+	height: 550px;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-position: center center;
@@ -608,7 +617,7 @@
 
 /* 2.6 wishlist block css here */
 .block_title h3 {
-	color: #f5a2c2;
+	color: #fc90ab;
 	text-transform: uppercase;
 	font-size: 18px;
 	font-weight: 700;
@@ -619,6 +628,7 @@
 	z-index: 9;
 	position: relative;
 	padding-right: 20px;
+	font-family: 'Cormorant Garamond', serif;
 }
 .sidebar_widget.tags.mb-35 {
 	margin-bottom: 31px;
@@ -823,10 +833,17 @@
 	font-weight: bold;
 	font-size: 18px;
 	padding: 7px 0;
-	display: block;
+	/* display: block; */
+	display: inline-block;
+	margin-right: 8px;
+}
+.old-price {
+    text-decoration: line-through;
+    color: #999999 !important;
+    font-weight: normal;
 }
 .product_content h3 a:hover{
-    color: #e84c3d;
+    color: #04192d;
 }
 .product_info ul li {
 	display: inline-block;
@@ -841,6 +858,7 @@
 	display: block;
 	font-size: 13px;
 	margin: 0 3px;
+	border-radius: 20px;
 }
 .product_info {
 	text-align: center;
@@ -1270,16 +1288,19 @@
 	-webkit-transform: translatey(-50%);
 	transform: translatey(-50%);
 }
+.layere_categorie ul li input[type="radio"] {
+	accent-color: #d86782;
+}
 .categorie__titile h2,.sidebar_widget.color h2,.sidebar_widget.price h2 {
 	font-size: 18px;
-	color: #333333;
+	color: #fc90ab;
 	text-transform: uppercase;
 	font-weight: 700;
 	line-height: 18px;
 }
 .categorie__titile h4 {
 	font-size: 18px;
-	color: #333333;
+	color: #fc90ab;
 	text-transform: uppercase;
 	font-weight: 700;
 	line-height: 18px;
@@ -1363,7 +1384,7 @@
 	height: 15px;
 }
 .ui-slider-horizontal .ui-slider-range {
-	background: #08C7B2;
+	background: #fc90ab;
 }
 .ui-slider-horizontal {
 	height: 10px;
@@ -1919,14 +1940,14 @@
     transition: .3s;
 }
 .product_info_button ul li a.active::before,.product_info_button ul li a:hover::before{
-    border-left: 20px solid #009483;
+    border-left: 20px solid #f2d4db;
 }
 .product_info_button ul li a.active,.product_info_button ul li a:hover {
-	background: #009483;
+	background: #f2d4db;
 	color: #fff;
 }
 .product_info_button {
-	border-bottom: 3px solid #009483;
+	border-bottom: 3px solid #f2d4db;
 }
 .product_d_inner .tab-content {
 	padding: 20px 30px 25px;
@@ -2388,7 +2409,7 @@
 .account_form h2 {
 	font-size: 30px;
 	text-transform: capitalize;
-	color: #333;
+	color: #fc90ab;
 	font-weight: 700;
 	line-height: 22px;
 	margin-bottom: 38px;
@@ -2409,6 +2430,11 @@
 	color: #555;
 	cursor: pointer;
 }
+.account_form label .required {
+    color: red;
+    font-weight: bold;
+    margin-left: 4px; 
+}
 .account_form input {
 	border: 1px solid #e5e5e5;
 	height: 32px;
@@ -2417,7 +2443,7 @@
 	background: none;
 }
 .login_submit button {
-	background: #333;
+	background: #fc90ab;
 	border: 0;
 	color: #fff;
 	display: inline-block;
@@ -2432,6 +2458,7 @@
 	transition: .3s;
     margin-right: 20px;
 }
+
 .login_submit button:hover{
     background:  #e84c3d;
 }
@@ -2443,9 +2470,10 @@
 .login_submit a {
 	text-align: right;
 	font-size: 13px;
-	color: #f2d4db;
+	color: #fc90ab;
 	float: right;
 	line-height: 39px;
+	margin-right: 15px;
 }
 .login_submit a:hover,.account_form label:hover{
     color: #e84c3d;

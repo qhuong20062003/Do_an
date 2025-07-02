@@ -2,7 +2,7 @@
 
 @section('content')
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
+<!-- <div class="breadcrumbs_area">
     <div class="row">
         <div class="col-12">
             <div class="breadcrumb_content">
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--breadcrumbs area end-->
 
 <!--pos home section-->
@@ -32,7 +32,7 @@
                         @foreach($categories as $category)
                         <li>
                             <input type="radio" name="category" value="{{ $category['id'] }}">
-                            <label for="acces">{{ $category['name'] }}<span>({{ $category['count'] }})</span></label>
+                            <label for="acces">{{ $category['name'] }}</label>
                         </li>
                         @endforeach
                     </ul>
@@ -194,9 +194,9 @@
         </div>
         <div class="col-lg-9 col-md-12">
             <!--banner slider start-->
-            <div class="banner_slider mb-35">
+            <!-- <div class="banner_slider mb-35">
                 <img src="{{ asset('client\assets\img\banner\bannner10.jpg') }}" alt="">
-            </div>
+            </div> -->
             <!--banner slider start-->
 
             <!--shop toolbar start-->
@@ -468,6 +468,7 @@
         width: 16px;
         height: 16px;
         margin-right: 6px;
+    	accent-color: #d86782;
     }
 
     .color-circle {

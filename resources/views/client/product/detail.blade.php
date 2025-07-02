@@ -2,7 +2,7 @@
 
 @section('content')
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
+<!-- <div class="breadcrumbs_area">
     <div class="row">
         <div class="col-12">
             <div class="breadcrumb_content">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--breadcrumbs area end-->
 
 
@@ -76,7 +76,7 @@
         <div class="col-lg-7 col-md-6">
             <div class="product_d_right">
                 <h1>{{ $product->name }}</h1>
-                <div class="product_ratting mb-10">
+                <!-- <div class="product_ratting mb-10">
                     <ul>
                         <li><a href="#"><i class="fa fa-star"></i></a></li>
                         <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -85,10 +85,10 @@
                         <li><a href="#"><i class="fa fa-star"></i></a></li>
                         <li><a href="#"> Write a review </a></li>
                     </ul>
-                </div>
-                <div class="product_desc">
+                </div> -->
+                <!-- <div class="product_desc">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati modi culpa voluptates illo, quos magni totam inventore delectus perspiciatis necessitatibus, iure rerum! Deleniti nobis voluptatibus minus, iusto ullam quae esse..</p>
-                </div>
+                </div> -->
 
                 <div class="content_price mb-15">
                     @if(!empty($product->discount) && $product->discount > 0)
@@ -172,12 +172,12 @@
                         <li>
                             <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Mô tả sản phẩm</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Data sheet</a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="tab-content">
