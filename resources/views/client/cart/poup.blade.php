@@ -21,7 +21,7 @@
             <span class="quantity">SL: {{ $item['quantity'] }}</span>
         </div>
         <div class="cart_remove">
-            <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
+            <a class="remove_cart_item" data-id="{{ $item['product_variant_id'] }}"><i class="fa fa-times-circle"></i></a>
         </div>
     </div>
     @endforeach

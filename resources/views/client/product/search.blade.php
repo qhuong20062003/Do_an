@@ -240,7 +240,7 @@
                                     <div class="product_info">
                                         <ul>
                                             <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">Chi tiết</a></li>
+                                            <li><a href="{{ route('detail.product', ['id' => $product->id]) }}">Chi tiết</a></li>
                                         </ul>
                                     </div>
                                 </div>

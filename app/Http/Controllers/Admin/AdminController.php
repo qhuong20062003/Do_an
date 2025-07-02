@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         $now = Carbon::now();
-        $thirty_day_ago = Carbon::now()->subDays(2);
+        $thirty_day_ago = Carbon::now()->subDays(30);
         $revenues = [];
 
         for($i = 1; $i <= 12; $i++) {
