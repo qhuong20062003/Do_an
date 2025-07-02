@@ -4,8 +4,15 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer_widget">
-                        <h3>About us</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h3>Về chúng tôi</h3>
+                        <p>MARIA HOUSE LUÔN LẮNG NGHE BẠN!
+Chúng tôi hướng đến những trải nghiệm mua hàng khác biệt, luôn lắng nghe khách hàng để từng ngày cải thiện chất lượng sản phẩm và trải nghiệm mua sắm tuyệt vời nhất.</p>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer_widget">
+                        <h3>Liên hệ với chúng tôi</h3>
                         <div class="footer_widget_contect">
                             <p><i class="fa fa-map-marker" aria-hidden="true"></i> 19 Interpro Road Madison, AL 35758, USA</p>
 
@@ -14,19 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer_widget">
-                        <h3>My Account</h3>
-                        <ul>
-                            <li><a href="#">Your Account</a></li>
-                            <li><a href="#">My orders</a></li>
-                            <li><a href="#">My credit slips</a></li>
-                            <li><a href="#">My addresses</a></li>
-                            <li><a href="#">Login</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer_widget">
                         <h3>Informations</h3>
                         <ul>
@@ -49,7 +44,7 @@
                             <li><a href="#"> Privacy policy </a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

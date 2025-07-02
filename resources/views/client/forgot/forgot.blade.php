@@ -2,7 +2,7 @@
 
 @section('content')
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
+<!-- <div class="breadcrumbs_area">
     <div class="row">
         <div class="col-12">
             <div class="breadcrumb_content">
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--breadcrumbs area end-->
 
 <!-- forgot password start -->

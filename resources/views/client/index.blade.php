@@ -78,7 +78,7 @@
                             <div class="slider_content_inner">
                                 <h1>{{ $slider->name }}</h1>
                                 <p>{{ $slider->description }}</p>
-                                <a href="#">shop now</a>
+                                <!-- <a href="#">shop now</a> -->
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                 <div class="product_thumb">
                                     <a href="{{ route('detail.product', ['id' => $new_product->id]) }}"><img src="{{ $new_product->feature_image_path }}" alt="" class="product-image"></a>
                                     <div class="img_icone">
-                                        <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt="">
+                                        <!-- <img src="{{ asset('client\assets\img\cart\span-new.png') }}" alt=""> -->
                                     </div>
                                     <div class="product_action">
                                         <a class="detail_product" data-id="{{ $new_product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
@@ -140,19 +140,21 @@
                                 <div class="product_thumb">
                                     <a href="{{ route('detail.product', ['id' => $discount_product->id]) }}"><img src="{{ $discount_product->feature_image_path }}" class="product-image" alt=""></a>
                                     <div class="hot_img">
-                                        <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt="">
+                                        <!-- <img src="{{ asset('client\assets\img\cart\span-hot.png') }}" alt=""> -->
                                     </div>
                                     <div class="product_action">
                                         <a class="detail_product" data-id="{{ $discount_product->id }}"> <i class="fa fa-shopping-cart"></i> Mua hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">{{ number_format($discount_product->price, 0, 0) }} VNĐ</span>
+                                    <span class="product_price">{{ number_format($discount_product->discount, 0, 0) }} VNĐ</span>
+                                        <span class="old-price">{{ number_format($discount_product->price, 0, 0) }} VNĐ</span>
+
                                     <h3 class="product_title"><a href="{{ route('detail.product', ['id' => $discount_product->id]) }}">{{ $discount_product->name }}</a></h3>
                                 </div>
                                 <div class="product_info">
                                     <ul>
-                                        <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
+                                        <!-- <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li> -->
                                         <li><a href="{{ route('detail.product', ['id' => $discount_product->id]) }}" title="Quick view">Chi tiết</a></li>
                                     </ul>
                                 </div>
@@ -166,7 +168,7 @@
             <!--featured product end-->
 
             <!--banner area start-->
-            <div class="banner_area mb-60">
+            <!-- <div class="banner_area mb-60">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="single_banner">
@@ -185,7 +187,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--banner area end-->
 
             <!--brand logo strat-->

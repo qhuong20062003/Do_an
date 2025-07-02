@@ -51,7 +51,7 @@
 
 
 body {
-    font-family: 'Noto Serif Display', serif;;
+    font-family: 'Noto Serif Display', serif;
     line-height: 24px;
     font-weight: 400;
     font-style: normal;
@@ -338,7 +338,7 @@ textarea:focus {
         back-to-top
 *************************/
 #scrollUp {
-	background: #ea3a3c none repeat scroll 0 0;
+	background: #f2d4db none repeat scroll 0 0;
 	bottom: 85px;
 	color: #ffffff;
 	cursor: pointer;
@@ -357,7 +357,7 @@ textarea:focus {
 	transition: .3s;
 }
 #scrollUp:hover {
-  border-color: #ea3a3c;
+  border-color: #cf9fa8;
 }
 
 /*************************
