@@ -15,8 +15,18 @@ class HomeController extends Controller
     {
         $sliders = Slider::all();
         $categories = Category::all();
-        $new_products = Product::orderBy('id', 'desc')->limit(5)->get();
-        $discount_products = Product::where('discount', '>', 0)->orderBy('id', 'desc')->limit(5)->get();
+        $new_products = Product::whereIn('id', function ($query) {
+            $query->select('product_id')
+                ->from('product_variants')
+                ->where('stock', '>', 0)
+                ->groupBy('product_id');
+        })->orderBy('id', 'desc')->limit(5)->get();
+        $discount_products = Product::whereIn('id', function ($query) {
+            $query->select('product_id')
+                ->from('product_variants')
+                ->where('stock', '>', 0)
+                ->groupBy('product_id');
+        })->where('discount', '>', 0)->orderBy('id', 'desc')->limit(5)->get();
         
         return view('client.index', compact('sliders', 'categories', 'new_products', 'discount_products'));
     }
@@ -26,7 +36,12 @@ class HomeController extends Controller
         $text = $request->text;
 
         $colors = Colors::all();
-        $products = Product::where('name', 'like', "%$text%")->get();
+        $products = Product::whereIn('id', function ($query) {
+            $query->select('product_id')
+                ->from('product_variants')
+                ->where('stock', '>', 0)
+                ->groupBy('product_id');
+        })->where('name', 'like', "%$text%")->get();
 
         return view('client.product.search', compact('colors', 'products', 'text'));
     }
