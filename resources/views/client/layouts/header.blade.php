@@ -157,8 +157,8 @@
                                     @endif
                                 </li>
                                 @endforeach
-                                <li><a href="shop.html">Tin tức</a></li>
-                                <li><a href="shop.html">Liên hệ</a></li>
+                                <!-- <li><a href="shop.html">Tin tức</a></li> -->
+                                <li><a href="#lienhe">Liên hệ</a></li>
                                 <!-- <li><a href="#">women</a>
                                     <div class="mega_menu">
                                         <div class="mega_top fix">

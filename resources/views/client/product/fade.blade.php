@@ -183,7 +183,7 @@
         height: 25px;
         border-radius: 50%;
         background-color: var(--color);
-        border: 2px solid transparent;
+        border: 2px solid #000;
         transition: all 0.3s ease;
     }
 

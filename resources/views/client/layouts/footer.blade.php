@@ -1,8 +1,8 @@
-<div class="footer_area">
+<div class="footer_area" id="lienhe">
     <div class="footer_top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="footer_widget">
                         <h3>Về chúng tôi</h3>
                         <p>MARIA HOUSE LUÔN LẮNG NGHE BẠN!
@@ -10,7 +10,7 @@ Chúng tôi hướng đến những trải nghiệm mua hàng khác biệt, luô
                         
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="footer_widget">
                         <h3>Liên hệ với chúng tôi</h3>
                         <div class="footer_widget_contect">
@@ -48,7 +48,7 @@ Chúng tôi hướng đến những trải nghiệm mua hàng khác biệt, luô
             </div>
         </div>
     </div>
-    <div class="footer_bottom">
+    <!-- <div class="footer_bottom">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
@@ -74,5 +74,5 @@ Chúng tôi hướng đến những trải nghiệm mua hàng khác biệt, luô
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

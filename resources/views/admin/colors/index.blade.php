@@ -26,7 +26,7 @@
                             <table class="table table-bordered table-hover align-middle text-center">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>#</th>
+                                        <th>STT</th>
                                         <th>Mẫu màu</th>
                                         <th>Tên màu</th>
                                         <th>Mã màu</th>
@@ -36,7 +36,7 @@
                                 <tbody>
                                     @foreach($colors as $color)
                                     <tr>
-                                        <td>{{ $color->id }}</td>
+                                        <td>{{ ($colors->currentPage() - 1) * $colors->perPage() + $loop->iteration }}</td>
                                         <td>
                                             <div class="rounded shadow-sm mx-auto"
                                                 style="width: 60px; height: 30px; background-color: {{ $color->code }}; border: 1px solid #ccc;">

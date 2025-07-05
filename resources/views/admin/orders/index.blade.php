@@ -29,7 +29,7 @@
                             <table class="table table-bordered table-hover align-middle text-center">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>#</th>
+                                        <th>STT</th>
                                         <th>Mã đơn hàng</th>
                                         <!-- <th>Người đặt</th> -->
                                         <th>Ngày đặt</th>
@@ -40,7 +40,7 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                     <tr>
-                                        <td>{{ $order->id }}</td>
+                                        <td>{{ ($orders->currentPage() - 1) * $orders->perPage() + $loop->iteration }}</td>
                                         <td>{{ $order->code }}</td>
                                         <!-- <td>{{ $order->customer_name }}</td> -->
                                         <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>

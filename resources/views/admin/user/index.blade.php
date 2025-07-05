@@ -35,7 +35,7 @@
               <table class="table table-bordered table-hover align-middle text-center">
                 <thead class="table-light">
                   <tr>
-                    <th>ID</th>
+                    <th>STT</th>
                     <th>Tên</th>
                     <th>Email</th>
                     <th>Vai trò</th>
@@ -45,7 +45,7 @@
                 <tbody>
                   @foreach ($users as $user)
                   <tr>
-                    <td>{{ $user->id }}</td>
+                    <td>{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ ucfirst($user->role) }}</td>
