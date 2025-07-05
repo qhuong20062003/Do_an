@@ -20,10 +20,22 @@ class ProductController extends Controller
         if($category->parent_id == 0) {
             $child_ids = Category::where('parent_id', $id)->pluck('id')->toArray();
             $category_ids = array_merge([$id], $child_ids);
-            $products = Product::whereIn('category_id', $category_ids)->get();
+            $products = Product::whereIn('category_id', $category_ids)
+                    ->whereIn('id', function($query) {
+                        $query->select('product_id')
+                            ->from('product_variants')
+                            ->where('stock', '>', 0)
+                            ->groupBy('product_id');
+                    })->get();
             $categories = Category::where('parent_id', $id)->get();
         } else {
-            $products = Product::where('category_id', $id)->get();
+            $products = Product::where('category_id', $id)
+                    ->whereIn('id', function($query) {
+                        $query->select('product_id')
+                            ->from('product_variants')
+                            ->where('stock', '>', 0)
+                            ->groupBy('product_id');
+                    })->get();
             $categories = collect();
         }
         
@@ -33,7 +45,15 @@ class ProductController extends Controller
     public function detail(string $id)
     {
         $product = Product::findOrFail($id);
-        $related_products = Product::where('id', '!=', $product->id)->where('category_id', $product->category_id)->limit(5)->get();
+        $related_products = Product::where('id', '!=', $product->id)
+                        ->whereIn('id', function($query) {
+                            $query->select('product_id')
+                                ->from('product_variants')
+                                ->where('stock', '>', 0)
+                                ->groupBy('product_id');
+                        })
+                        ->where('category_id', $product->category_id)
+                        ->limit(5)->get();
         $sizes = Sizes::join('product_variants', 'sizes.id', '=', 'product_variants.size_id')
                 ->select('sizes.*')
                 ->where('product_variants.product_id', $id)
@@ -125,6 +145,13 @@ class ProductController extends Controller
             }); 
         }
 
+        $query->whereIn('id', function ($sub) {
+            $sub->select('product_id')
+                ->from('product_variants')
+                ->where('stock', '>', 0)
+                ->groupBy('product_id');
+        });
+
         $products = $query->get();
 
         return view('client.product.filter', compact('products'));
@@ -158,6 +185,13 @@ class ProductController extends Controller
                     ->orWhereBetween('discount', [$min, $max]);
             }); 
         }
+
+        $query->whereIn('id', function ($sub) {
+            $sub->select('product_id')
+                ->from('product_variants')
+                ->where('stock', '>', 0)
+                ->groupBy('product_id');
+        });
 
         $products = $query->get();
 
