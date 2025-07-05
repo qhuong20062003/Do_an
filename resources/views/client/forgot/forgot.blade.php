@@ -29,11 +29,12 @@
                     {{ session('error') }}
                 </div>
                 @endif
-                <form action="{{ route('otp.email') }}" method="POST">
+                <form action="{{ route('otp.email') }}" method="POST" id="myForm">
                     @csrf
                     <p>
-                        <label>Nhập email để đặt lại mật khẩu <span>*</span></label>
-                        <input type="email" name="email" required>
+                        <label>Nhập email để đặt lại mật khẩu <span class="required">*</span></label>
+                        <input type="email" name="email" id="email">
+                        <small id="email-error" class="text-danger" style="display: none;">Vui lòng nhập email</small>
                     </p>
                     <div class="login_submit">
                         <button type="submit">Gửi liên kết đặt lại mật khẩu</button>
@@ -45,4 +46,26 @@
     </div>
 </div>
 <!-- forgot password end -->
+
+<script>
+    $(document).ready(function(){
+        $('#myForm').on('submit', function(e) {
+            let is_valid = true;
+
+            let email = $('#email');
+            if(!email.val().trim()) {
+                $('#email-error').show();
+                email.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#email-error').hide();
+                email.css('border', '');
+            }
+
+            if(!is_valid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 @endsection

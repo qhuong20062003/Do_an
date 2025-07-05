@@ -37,14 +37,16 @@
                     {{ session('success') }}
                 </div>
                 @endif
-                <form action="{{ route('post.login') }}" method="POST">
+                <form action="{{ route('post.login') }}" method="POST" id="myForm">
                     <p>
                         <label for="email">Email <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+                        <input type="email" id="email" name="email" placeholder="Nhập email của bạn">
+                        <small id="email-error" class="text-danger" style="display: none;">Vui lòng nhập email</small>
                     </p>
                     <p>
-                        <label>Mật khẩu <span>*</span></label>
-                        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+                        <label>Mật khẩu <span class="required">*</span></label>
+                        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu">
+                        <small id="password-error" class="text-danger" style="display: none;">Vui lòng nhập password</small>
                     </p>
                     <div class="login_submit">
                         <button type="submit">Đăng nhập</button>
@@ -63,4 +65,36 @@
     </div>
 </div>
 <!-- customer login end -->
+
+<script>
+    $(document).ready(function(){
+        $('#myForm').on('submit', function(e) {
+            let is_valid = true;
+
+            let email = $('#email');
+            if(!email.val().trim()) {
+                $('#email-error').show();
+                email.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#email-error').hide();
+                email.css('border', '');
+            }
+            
+            let password = $('#password');
+            if(!password.val().trim()) {
+                $('#password-error').show();
+                password.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#password-error').hide();
+                password.css('border', '');
+            }
+
+            if(!is_valid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 @endsection

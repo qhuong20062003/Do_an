@@ -72,7 +72,7 @@
             </div>
         </div>
     </div> -->
-    <form action="{{ route('payment.handle') }}" method="POST">
+    <form action="{{ route('payment.handle') }}" method="POST" id="myForm">
         <div class="checkout_form">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -80,16 +80,19 @@
                     <div class="row">
                         <div class="col-12 mb-30">
                             <label>Tên người nhận <span>*</span></label>
-                            <input type="text" name="name">
+                            <input type="text" name="name" id="name">
+                            <small id="name-error" class="text-danger" style="display: none;">Vui lòng nhập tên người nhận</small>
                         </div>
                         <div class="col-12 mb-30">
                             <label>Số điện thoại người nhận <span>*</span></label>
-                            <input type="number" name="phone">
+                            <input type="number" name="phone" id="phone">
+                            <small id="phone-error" class="text-danger" style="display: none;">Vui lòng nhập số điện thoại người nhận</small>
                         </div>
                         <div class="col-12 mb-30">
                             <label>Địa chỉ người nhận <span>*</span></label>
 
                             <input type="text" id="street" class="form-control mb-2" placeholder="Số nhà, tên đường...">
+                            <small id="street-error" class="text-danger" style="display: none;">Vui lòng nhập địa chỉ người nhận</small>
 
                             <div class="row">
                                 <div class="col-md-4 mb-2">
@@ -99,18 +102,21 @@
                                         <option value="{{ $city['id'] }}">{{ $city['name'] }}</option>
                                         @endforeach
                                     </select>
+                                    <small id="city-error" class="form-text text-danger" style="display: none;">Vui lòng chọn tỉnh/thành</small>
                                 </div>
 
                                 <div class="col-md-4 mb-2">
                                     <select id="district" class="form-control">
                                         <option value="">Chọn Quận/Huyện</option>
                                     </select>
+                                    <small id="district-error" class="form-text text-danger" style="display: none;">Vui lòng chọn quận/huyện</small>
                                 </div>
 
                                 <div class="col-md-4 mb-2">
                                     <select id="ward" class="form-control">
                                         <option value="">Chọn Phường/Xã</option>
                                     </select>
+                                    <small id="ward-error" class="form-text text-danger" style="display: none;">Vui lòng chọn phường/xã</small>
                                 </div>
                             </div>
 
@@ -262,6 +268,74 @@
                 $('#address').val(full_address);
             }
         }
+
+        $('#myForm').on('submit', function(e) {
+            let is_valid = true;
+
+            let city = $('#city');
+            if (!city.val()) {
+                $('#city-error').show();
+                city.next('.nice-select').css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#city-error').hide();
+                city.next('.nice-select').css('border', '');
+            }
+            
+            let district = $('#district');
+            if (!district.val()) {
+                $('#district-error').show();
+                district.next('.nice-select').css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#district-error').hide();
+                city.next('.nice-select').css('border', '');
+            }
+
+            let ward = $('#ward');
+            if (!ward.val()) {
+                $('#ward-error').show();
+                ward.next('.nice-select').css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#ward-error').hide();
+                ward.next('.nice-select').css('border', '');
+            }
+
+            let name = $('#name');
+            if(!name.val().trim()) {
+                $('#name-error').show();
+                name.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#name-error').hide();
+                name.css('border', '');
+            }
+            
+            let phone = $('#phone');
+            if(!phone.val().trim()) {
+                $('#phone-error').show();
+                phone.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#phone-error').hide();
+                phone.css('border', '');
+            }
+            
+            let street = $('#street');
+            if(!street.val().trim()) {
+                $('#street-error').show();
+                street.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#street-error').hide();
+                street.css('border', '');
+            }
+
+            if(!is_valid) {
+                e.preventDefault();
+            }
+        });
     });
 </script>
 <style>

@@ -30,16 +30,18 @@
                     {{ session('error') }}
                 </div>
                 @endif
-                <form action="{{ route('reset.password') }}" method="POST">
+                <form action="{{ route('reset.password') }}" method="POST" id="myForm">
                     @csrf
                     <p>
-                        <label>Mật khẩu mới <span>*</span></label>
-                        <input type="password" name="password" required>
+                        <label>Mật khẩu mới <span class="required">*</span></label>
+                        <input type="password" name="password" id="new_password">
+                        <small id="new-password-error" class="text-danger" style="display: none;">Vui lòng nhập mật khẩu mới</small>
                     </p>
 
                     <p>
-                        <label>Xác nhận mật khẩu <span>*</span></label>
-                        <input type="password" name="password_confirm" required>
+                        <label>Xác nhận mật khẩu <span class="required">*</span></label>
+                        <input type="password" name="password_confirm" id="confirm_password">
+                        <small id="confirm-password-error" class="text-danger" style="display: none;">Vui lòng xác nhận mật khẩu mới</small>
                     </p>
 
                     <!-- Truyền mã token hoặc email nếu cần -->
@@ -56,4 +58,36 @@
     </div>
 </div>
 <!-- reset password form end -->
+
+<script>
+    $(document).ready(function(){
+        $('#myForm').on('submit', function(e) {
+            let is_valid = true;
+
+            let new_password = $('#new_password');
+            if(!new_password.val().trim()) {
+                $('#new-password-error').show();
+                new_password.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#new-password-error').hide();
+                new_password.css('border', '');
+            }
+
+            let confirm_password = $('#confirm_password');
+            if(!confirm_password.val().trim()) {
+                $('#confirm-password-error').show();
+                confirm_password.css('border', '1px solid red');
+                is_valid = false;
+            } else {
+                $('#confirm-password-error').hide();
+                confirm_password.css('border', '');
+            }
+
+            if(!is_valid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 @endsection
