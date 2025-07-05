@@ -4,6 +4,16 @@
 <title>Danh sách kích thước</title>
 @endsection
 
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('admins/slider/index/index.css') }}">
+@endsection
+
+@section('js')
+<script src="{{ asset('vendors/sweetAlert2/sweetalert2@11.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admins/main.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="content-wrapper">
     @include('admin.partials.content-header', ['name' => 'Danh sách', 'key' => 'kích thước'])
@@ -41,9 +51,9 @@
                                         <td>
                                             <a href="{{ route('sizes.edit', ['id' => $size->id]) }}"
                                                 class="btn btn-sm btn-outline-primary me-1">Sửa</a>
-                                            <a href="{{ route('sizes.delete', ['id' => $size->id]) }}"
-                                                onclick="return confirm('Nếu bạn xóa size này, các biến thể của nó sẽ mất, bạn có chắc chắn muốn xóa size này không?')"
-                                                class="btn btn-sm btn-outline-danger">Xóa</a>
+                                            <a href="#"
+                                                data-url="{{ route('sizes.delete', ['id' => $size->id]) }}"
+                                                class="btn btn-sm btn-outline-danger action_delete">Xóa</a>
                                         </td>
                                     </tr>
                                     @endforeach
