@@ -28,7 +28,7 @@
                             <table class="table table-bordered table-hover align-middle text-center">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>#</th>
+                                        <th>STT</th>
                                         <th>Tên size</th>
                                         <th>Hành động</th>
                                     </tr>
@@ -36,7 +36,7 @@
                                 <tbody>
                                     @foreach($sizes as $size)
                                     <tr>
-                                        <td>{{ $size->id }}</td>
+                                        <td>{{ ($sizes->currentPage() - 1) * $sizes->perPage() + $loop->iteration }}</td>
                                         <td>{{ $size->name }}</td>
                                         <td>
                                             <a href="{{ route('sizes.edit', ['id' => $size->id]) }}"

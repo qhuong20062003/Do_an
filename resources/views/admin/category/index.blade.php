@@ -26,7 +26,7 @@
               <table class="table table-bordered table-hover">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" style="width: 5%;">#</th>
+                    <th scope="col" style="width: 5%;">STT</th>
                     <th scope="col">Tên danh mục</th>
                     <th scope="col" style="width: 20%;">Hành động</th>
                   </tr>
@@ -34,7 +34,7 @@
                 <tbody>
                   @foreach($categories as $category)
                   <tr>
-                    <td>{{ $category->id }}</td>
+                    <td>{{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}</td>
                     <td>{{ $category->name }}</td>
                     <td>
                       <a href="{{ route('categories.edit',['id'=> $category->id]) }}"

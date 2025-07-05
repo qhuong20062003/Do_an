@@ -37,7 +37,7 @@
               <table class="table table-bordered table-hover align-middle text-center">
                 <thead class="table-light">
                   <tr>
-                    <th>#</th>
+                    <th>STT</th>
                     <th>Tên slider</th>
                     <th>Mô tả</th>
                     <th>Hình ảnh</th>
@@ -47,7 +47,7 @@
                 <tbody>
                   @foreach ($sliders as $slider)
                   <tr>
-                    <td>{{ $slider->id }}</td>
+                    <td>{{ ($sliders->currentPage() - 1) * $sliders->perPage() + $loop->iteration }}</td>
                     <td>{{ $slider->name }}</td>
                     <td class="text-start">{{ $slider->description }}</td>
                     <td>

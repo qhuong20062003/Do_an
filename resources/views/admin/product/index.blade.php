@@ -35,7 +35,7 @@
               <table class="table table-bordered table-hover align-middle text-center">
                 <thead class="table-light">
                   <tr>
-                    <th>ID</th>
+                    <th>STT</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá gốc</th>
                     <th>Giá khuyến mãi</th>
@@ -47,7 +47,7 @@
                 <tbody>
                   @foreach($products as $productItem)
                   <tr>
-                    <td>{{ $productItem->id }}</td>
+                    <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                     <td>{{ $productItem->name }}</td>
                     <td>{{ number_format((float)$productItem->price) }} VNĐ</td>
                     <td>{{ number_format((float)$productItem->discount) }} VNĐ</td>
