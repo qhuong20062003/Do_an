@@ -254,8 +254,12 @@
                                         </div>
                                     </div>
                                     <div class="product_content">
-                                        <span class="product_price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
-                                        <h3 class="product_title"><a href="{{ route('detail.product', ['id' => $product->id]) }}">{{ $product->name }}</a></h3>
+                                @if(!empty($product->discount) && $product->discount > 0)
+                                <span class="new_price">{{ number_format($product->discount, 0, 0) }} VNĐ</span>
+                                <span class="old-price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                @else
+                                <span class="product_price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                @endif                                        <h3 class="product_title"><a href="{{ route('detail.product', ['id' => $product->id]) }}">{{ $product->name }}</a></h3>
                                     </div>
                                     <div class="product_info">
                                         <ul>
@@ -303,8 +307,12 @@
                                             <label for="select">Select to compare</label>
                                         </p> -->
                                         <div class="content_price">
-                                            <span>{{ number_format($product->discount, 0, 0) }} VNĐ</span>
-                                            <span class="old-price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                            @if(!empty($product->discount) && $product->discount > 0)
+                                                <span class="new_price">{{ number_format($product->discount, 0, 0) }} VNĐ</span>
+                                                <span class="old-price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                            @else
+                                                <span class="product_price">{{ number_format($product->price, 0, 0) }} VNĐ</span>
+                                            @endif
                                         </div>
                                         <div class="add_links">
                                             <ul>
