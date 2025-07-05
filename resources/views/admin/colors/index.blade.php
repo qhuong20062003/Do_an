@@ -4,6 +4,15 @@
 <title>Danh sách màu sắc</title>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('admins/slider/index/index.css') }}">
+@endsection
+
+@section('js')
+<script src="{{ asset('vendors/sweetAlert2/sweetalert2@11.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admins/main.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="content-wrapper">
     @include('admin.partials.content-header', ['name' => 'Danh sách', 'key' => 'màu sắc'])
@@ -47,9 +56,9 @@
                                         <td>
                                             <a href="{{ route('colors.edit', ['id' => $color->id]) }}"
                                                 class="btn btn-sm btn-outline-primary me-1">Sửa</a>
-                                            <a href="{{ route('colors.delete', ['id' => $color->id]) }}"
-                                                onclick="return confirm('Nếu bạn xóa màu sắc này, các biến thể của nó sẽ mất, bạn có chắc chắn muốn xóa màu sắc này không?')"
-                                                class="btn btn-sm btn-outline-danger">Xóa</a>
+                                            <a href="#"
+                                                data-url="{{ route('colors.delete', ['id' => $color->id]) }}"
+                                                class="btn btn-sm btn-outline-danger action_delete">Xóa</a>
                                         </td>
                                     </tr>
                                     @endforeach

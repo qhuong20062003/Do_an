@@ -4,6 +4,15 @@
 <title>Danh sách danh mục</title>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('admins/slider/index/index.css') }}">
+@endsection
+
+@section('js')
+<script src="{{ asset('vendors/sweetAlert2/sweetalert2@11.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admins/main.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="content-wrapper">
   @include('admin.partials.content-header',['name' => 'Danh sách','key'=> 'danh mục'])
@@ -39,10 +48,9 @@
                     <td>
                       <a href="{{ route('categories.edit',['id'=> $category->id]) }}"
                         class="btn btn-sm btn-outline-primary me-1">Sửa</a>
-                      <a href="{{ route('categories.delete',['id'=> $category->id]) }}"
-                        class="btn btn-sm btn-outline-danger"
-                        onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
-                    </td>
+                      <a href="#"
+                        data-url="{{ route('categories.delete', ['id' => $category->id]) }}"
+                        class="btn btn-sm btn-outline-danger action_delete">Xóa</a>
                   </tr>
                   @endforeach
                 </tbody>
